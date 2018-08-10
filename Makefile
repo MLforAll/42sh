@@ -6,11 +6,11 @@
 #    By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/20 21:41:19 by kdumarai          #+#    #+#              #
-#    Updated: 2018/08/09 18:51:52 by kdumarai         ###   ########.fr        #
+#    Updated: 2018/08/10 23:32:54 by kdumarai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = 42sh
 
 CC_FLAGS = -Wall -Werror -Wextra -DSHJBS_LOCK_USE_PTHREADS
 CC_LIB = -I includes -I libft/includes -I libftreadline/includes
