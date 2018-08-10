@@ -6,7 +6,7 @@
 #    By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/20 21:41:19 by kdumarai          #+#    #+#              #
-#    Updated: 2018/08/10 23:32:54 by kdumarai         ###   ########.fr        #
+#    Updated: 2018/08/10 23:54:43 by kdumarai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INCFILES = sh.h \
 		   sh_prompt.h \
 		   sh_lexer.h \
 		   sh_parser.h \
+		   sh_globing.h \
 		   sh_builtins.h \
 		   sh_jobs.h
 INCLUDES = $(addprefix $(INCDIR)/, $(INCFILES))
@@ -63,6 +64,16 @@ SRCFILES = sh_main.c \
 	parser/parser_inclist.c \
 	parser/parser_heredocs.c \
 	parser/parser_syntax.c \
+	globing/ft_count.c \
+	globing/ft_glob_parsing.c \
+	globing/ft_strsplit_globing.c \
+	globing/glob_check.c \
+	globing/globing_tools.c \
+	globing/improve_surface.c \
+	globing/random_glob.c \
+	globing/replace_char.c \
+	globing/start_checking_globing.c \
+	globing/too_much_fcts.c \
 	eval/sh_eval.c \
 	eval/sh_evaluators.c \
 	exec/sh_cmdexec.c \

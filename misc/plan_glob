@@ -1,0 +1,25 @@
+
+problemes
+
+gestion erreures pas precise 100%
+pqs de double tab pour les elements commus pour '?' cad un prev et un past seulement.
+
+
+plan
+
+faire double tab avec chaques parties separer par ?? et * et []
+faire liste
+dans liste on aun char* et un int, le it pour les inconnues (qd de ? qd de * cb de longeur pour le [????] 
+
+parcours le test (/????/)
+faire les strequ, augmenter le i en fct des inconus, si sa match on pars en derniere etape ou un traite le premier inconnus a l'aide des fcts correspondantes en fonction de s'il s'agit de * [ ou ?
+
+on ajoute la nouvelle partie a la ligne on reset le i et les quotes en on recommence.
+
+
+(important)
+	precheck si '[' a son ']'
+
+(ne marche pas)
+	ls ki[?]po quand file ki?po present dans file
+
