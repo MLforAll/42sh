@@ -6,11 +6,13 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 05:29:22 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 00:06:28 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/11 23:32:47 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_globing.h"
+
+
 
 int				count_name2(char *name)
 {
