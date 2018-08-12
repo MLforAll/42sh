@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/09 22:00:47 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/12 01:37:19 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ static t_uint8			get_tokens_strings(t_list **ret, char *s)
 	if (!ft_tstrnew(&vs))
 		return (FALSE);
 	*ret = NULL;
+	if ((s = start_checking_globing(ret, s)) == NULL)
+			return (FALSE);
+	ft_putendl(s);
 	if (!lexer_expand_tilde(&s, &vs))
 	{
 		ft_tstrdel(&vs);

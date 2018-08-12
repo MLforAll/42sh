@@ -6,11 +6,27 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 04:25:10 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:37:56 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_globing.h"
+
+void		ft_fill_ret(char *line, t_list **ret)
+{
+	char	**tmp;
+	int		i;
+	t_list	*new;
+
+	i = 0;
+	tmp = ft_strsplit(line, ' ');
+	while (tmp[i])
+	{
+		new = ft_lstnew(tmp[i], ft_strlen(tmp[i]));
+		ft_lstadd(ret, new);
+		i++;
+	}
+}
 
 char			*start_exp(char *line, int *o, char *save)
 {
@@ -32,6 +48,7 @@ char			*start_exp(char *line, int *o, char *save)
 				ft_strdel(&save);
 				return (NULL);
 			}
+			ft_putendl(line);
 			i = -1;
 		}
 		i++;

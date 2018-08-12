@@ -6,17 +6,29 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 19:59:21 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 01:45:34 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:33:16 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_globing.h"
+/*
+char	*ft_improve_tilde(char *line)
+{
+	int i;
 
+	i = 0;
+	if (ft_strchr(line, '~') == NULL)
+		return (line);
+	while (line[i])
+	{
+		
+	}
+}
+*/
 char	*return_letters(char *line, char *tmp, char **surface)
 {
 	char *temp;
 
-	ft_putendl(line);
 	if (tmp && surface[1])
 	{
 		temp = ft_strjoin(tmp, line);

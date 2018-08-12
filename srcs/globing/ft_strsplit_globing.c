@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 01:49:28 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:37:53 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		nb_words(char *str)
 			if (str[i] && str[i] != '*' && str[i] != '?' && str[i] != '[')
 				ret++;
 		}
-		else if (str[i])
+		else 
 			i++;
 	}
 	return (ret);
