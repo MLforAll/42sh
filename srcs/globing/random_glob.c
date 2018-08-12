@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 03:37:56 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:50:36 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char			*start_exp(char *line, int *o, char *save)
 				ft_strdel(&save);
 				return (NULL);
 			}
-			ft_putendl(line);
 			i = -1;
 		}
 		i++;

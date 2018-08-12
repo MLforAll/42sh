@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 03:37:52 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:50:19 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ char			*get_elem(char *surface, int *var)
 		if (ft_strchr(test, '?') || ft_strchr(test, '*') ||
 				ft_strchr(test, '['))
 		{
-	ft_putendl("O");
 			if (!(board = replace_char(surface, test,
 							ft_strsplit_globing(test))))
 			{
-	ft_putendl("O2");
 				return (NULL);
 			}
 			return (surface = improve_surface(surface, board, path, var));
@@ -95,7 +93,6 @@ char			*replace_letter(char *line, int i, int *o)
 			return (surface[1]);
 		return (NULL);
 	}
-	ft_putendl("OPAAAS");
 	return (return_letters(line, tmp, surface));
 }
 

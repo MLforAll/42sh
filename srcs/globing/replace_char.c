@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 03:37:55 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 03:50:49 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 	if (test[x->i] && test[x->i] != '*' && test[x->i] != '?' &&
 			test[x->i] != '[')
 	{
-	ft_putendl("PASS2");	
 		if (ft_strnequ(name + x->u, known[x->o], ft_strlen(known[x->o])))
 		{
 			x->i = x->i + ft_strlen(known[x->o]);
@@ -50,7 +49,6 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 	}
 	else
 	{
-	ft_putendl("PASS");	
 		while(ft_strnequ(name + x->u, known[x->o], ft_strlen(known[x->o])) == 0 && name[x->u] != '\0')
 			x->u += 1;
 		if(count_name(test, x->i) == 0)
@@ -79,7 +77,6 @@ static char		**send_it(char *name, char **ret, char *test, char **known)
 			return (ret);
 	}
 	ret = ft_glob_db(ret, name);
-	print_db(ret);
 	return (ret);
 }
 
@@ -91,12 +88,10 @@ char			**replace_char(char *surface, char *test, char **known)
 	char			**ret;
 	int				o;
 
-	ft_putendl("AAA");
 	ret = NULL;
 	o = 0;
 	if (!(prev = get_prev_string(surface)))
 		prev = ft_strdup(".");
-ft_putendl("A");
 	if ((dir = opendir(prev)) == NULL)
 	{
 		ft_putendl("Erreur d'opendir");
