@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 23:52:01 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/12 01:01:42 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_glob
 	int o;
 }					t_glob;
 
+void		ft_fill_ret(char *line, t_list **ret);
 int				count_name2(char *name);
 int				count_name(char *test, int i);
 
