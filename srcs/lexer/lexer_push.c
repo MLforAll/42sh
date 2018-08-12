@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/12 03:49:10 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 04:50:09 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static int				cpy_string(char *s, t_str *vs, t_list **ret)
 		old = curr;
 		s++;
 	}
+	if (start_checking_globing(ret, vs->s) != vs->s)
+		(void)ft_tstrcpy(vs, "");
 	return (rval);
 }
 
@@ -64,8 +66,6 @@ static t_uint8			get_tokens_strings(t_list **ret, char *s)
 	if (!ft_tstrnew(&vs))
 		return (FALSE);
 	*ret = NULL;
-	if ((s = start_checking_globing(ret, s)) == NULL)
-			return (FALSE);
 	if (!lexer_expand_tilde(&s, &vs))
 	{
 		ft_tstrdel(&vs);

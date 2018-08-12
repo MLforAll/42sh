@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 03:50:19 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/12 04:44:25 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ char			*start_checking_globing(t_list **ret, char *line)
 	}
 	ft_strdel(&save);
 	ft_fill_ret(line, ret);
+	ft_putstr("line = "); ft_putendl(line);
 	return (line);
 }
