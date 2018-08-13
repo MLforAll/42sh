@@ -37,7 +37,7 @@
 static char	*g_bltn_names[] = {
 	"echo", "cd", "exit", "source", ".",
 	"env", "setenv", "unsetenv", "unset",
-	"jobs", "fg", "bg"};
+	"jobs", "fg", "bg", "read"};
 
 int			sh_get_bltn(char **buff, const char *chk)
 {

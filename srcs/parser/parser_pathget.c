@@ -43,7 +43,7 @@ int			fill_bltn(t_cmdnode *cmddat, char *line_cmd)
 	static int	(*bltns_funcs[])(int, char **) = {&echo_bltn,
 		&cd_bltn, &exit_bltn, &source_bltn, &source_bltn,
 		&env_bltn, &setenv_bltn, &unsetenv_bltn, &unset_bltn,
-		&jobs_bltn, &fg_bltn, &bg_bltn};
+		&jobs_bltn, &fg_bltn, &bg_bltn, &read_bltn};
 
 	if ((idx = sh_get_bltn(NULL, line_cmd)) == -1)
 		return (FALSE);

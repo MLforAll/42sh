@@ -97,7 +97,26 @@ SRCFILES = sh_main.c \
 	bltns/sh_setunset_bltncmds.c \
 	bltns/sh_jobs_bltncmd.c \
 	sh_signals.c \
-	fsexp_functions.c
+	fsexp_functions.c \
+	bltns/sh_read_bltncmd.c \
+	bltns/sh_read_bltncmd2.c \
+	read_libft/ft_format_internal.c \
+	read_libft/ft_format.c \
+	read_libft/ft_ntsarr_new.c \
+	read_libft/ft_ntsarr_push.c \
+	read_libft/ft_ntsarr_app.c \
+	read_libft/ft_ntsarr_len.c \
+	read_libft/ft_ntsarr_free.c \
+	read_libft/ft_ntsarr_print.c \
+	read_libft/ft_put.c \
+	read_libft/ft_strapp.c \
+	read_libft/ft_strappf.c \
+	read_libft/ft_strappc.c \
+	read_libft/ft_strappcf.c \
+	read_libft/ft_gnl.c \
+	read_libft/ft_readsplit.c \
+	read_libft/ft_strlenp.c
+
 SRCS = $(addprefix $(SRCDIR)/, $(SRCFILES))
 NSRC = $(shell echo "$(SRCFILES)" | awk '{print NF}')
 ifeq ($(shell [ ! -z "`which bc`" ] && [ ! -z "`which awk`" ] && echo true),true)

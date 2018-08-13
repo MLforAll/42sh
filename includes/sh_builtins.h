@@ -49,4 +49,6 @@ int		setenv_bltn(int ac, char **av);
 int		unsetenv_bltn(int ac, char **av);
 int		unset_bltn(int ac, char **av);
 
+int		read_bltn(int ac, char **av);
+
 #endif

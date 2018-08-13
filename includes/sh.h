@@ -22,6 +22,8 @@
 # include "sh_parser.h"
 # include "sh_jobs.h"
 
+# include "read_libft.h"
+
 /*
 ** macros
 */
