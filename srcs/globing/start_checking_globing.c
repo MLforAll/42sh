@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 04:44:25 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/13 02:47:17 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,6 @@ char			*get_elem(char *surface, int *var)
 	return (surface);
 }
 
-char			*replace_letter(char *line, int i, int *o)
-{
-	char	*tmp;
-	char	**surface;
-
-	tmp = NULL;
-	surface = surface_of_work(line, &i);
-	if (i > 0)
-		tmp = ft_strndup(line, i);
-	if (!(line = get_elem(surface[0], o)))
-	{
-		if (tmp && surface[1])
-			return (ft_souder(tmp, surface[1], " "));
-		else if (tmp)
-			return (tmp);
-		if (surface[1])
-			return (surface[1]);
-		return (NULL);
-	}
-	return (return_letters(line, tmp, surface));
-}
-
 char			*start_checking_globing(t_list **ret, char *line)
 {
 	char	*save;
@@ -104,20 +82,22 @@ char			*start_checking_globing(t_list **ret, char *line)
 	o = 0;
 	if (!ft_strchr(line, '?') && !ft_strchr(line, '[') && !ft_strchr(line, '*'))
 		return (line);
-	if (parsing_glob(line) == -1)
-		return (NULL);
-	//line = ft_improve_tilde(line);
 	save = ft_strdup(line);
-	if (!(line = start_exp(line, &o, save)))
-		return (NULL);
+	if (parsing_glob(line) == -1)
+		return (save);
+	if (!(line = start_exp(line, &o)))
+	{
+		ft_fill_ret(save, ret);
+		return (save);
+	}
 	if (o == 0)
 	{
-		ft_error("42sh: no matches found: ", line);
-		ft_strdel(&save);
-		return (NULL);
+		//free
+		ft_fill_ret(save, ret);
+		return (save);
 	}
 	ft_strdel(&save);
-	ft_fill_ret(line, ret);
-	ft_putstr("line = "); ft_putendl(line);
+	if (line)
+		ft_fill_ret(line, ret);
 	return (line);
 }

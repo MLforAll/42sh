@@ -6,11 +6,10 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/12 04:50:09 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/12 20:59:37 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "sh_lexer.h"
 
 inline static t_quoting	detect_quote(char *s, t_quoting curr)

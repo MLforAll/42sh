@@ -6,46 +6,38 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 05:29:22 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 00:35:43 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:19:31 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_globing.h"
 
-int				count_name2(char *name)
+int				customs_officer(char *tmp2)
 {
 	int i;
 
 	i = 0;
-	while (name[i])
-		i++;
-	return (i);
+	if (ft_strchr(tmp2, '*') || ft_strchr(tmp2, '[') || ft_strchr(tmp2, '?'))
+		return (0);
+	if (access(tmp2, F_OK) == 0)
+		return (0);
+	ft_putendl("Pass");
+	return (1);
 }
 
-int				check_star(char *test, int i)
-{
-	while (test[i] != '*')
-	{
-		i--;
-		if (test[i] == '*')
-			return (1);
-	}
-	return (0);
-}
 
-int				count_name(char *test, int i)
+int				ft_globing_star(char *test, char *name, char **known, t_glob x)
 {
-	int ret;
-
-	ret = i;
-	if (check_star(test, i) == 0)
+	(void)test;
+	x.n = x.u;
+	while (name[x.n])
 	{
-		while (test[ret])
+		if (ft_strnequ(name + x.n, known[x.o], ft_strlen(known[x.o])))
 		{
-			ret++;
-			if (test[ret] == '*')
-				return (1);
+			return (x.n - x.u + ft_strlen(known[x.o]));
 		}
+		else
+			x.n++;
 	}
-	return (0);
+	return (-1);
 }

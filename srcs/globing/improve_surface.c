@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 01:23:55 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:16:53 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,12 @@ char		*improve_surface(char *surface, char **test, char *path, int *o)
 			}
 			else
 				tmp2 = ft_strjoin(test[i], surface + ft_length(path, surface));
-			if (!surface[ft_length(path, surface)] || add_one(surface, ft_length(path, surface)))
-				*o += 1;
-			ret = ft_improve_expend(ret, tmp2, tmp, path);
+			if (customs_officer(tmp2) == 0)
+			{
+				if (!surface[ft_length(path, surface)] || add_one(surface, ft_length(path, surface)))
+					*o += 1;
+				ret = ft_improve_expend(ret, tmp2, tmp, path);
+			}
 		}
 		i++;
 	}

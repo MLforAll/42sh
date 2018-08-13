@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:20:56 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 01:39:50 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:22:31 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ char		*ft_add_path(char *path, char *test)
 	return (ret);
 }
 
-static char	*expend_surface(char *line, int *u, int p)
+static char	*expend_surface(char *line, int *u, int before)
 {
 	int i;
 
 	i = 0;
 	while (line[i] && line[i] != ' ')
 		i++;
-	*u = i + 1 + p;
+	*u = i + before;
+	if (line[i])
+		*u += 1;
 	return (ft_strndup(line, i));
 }
 
@@ -89,6 +91,9 @@ char		**surface_of_work(char *line, int *i)
 		surface[2] = NULL;
 	}
 	else
+	{
 		surface[1] = NULL;
+		surface[2] = NULL;
+	}
 	return (surface);
 }

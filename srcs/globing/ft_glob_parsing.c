@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 11:29:41 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/10 05:28:40 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 21:31:38 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@ int			remove_some(char *str, int ref)
 {
 	int i;
 	int ret;
+	int	n;
 
+	n = 0;
 	ret = 0;
 	i = 0;
 	while (str[i] && i < ref)
 	{
+		while (str[i] == '*')
+		{
+			i++;
+			n++;
+		}
+		ref = ref + n;
+		n = 0;
 		if (str[i] == '[' && str[i + 1] && i + 1 < ref)
 		{
 			while (i < ref && str[i] && str[i] != ']')

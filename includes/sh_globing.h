@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/12 01:01:42 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:01:45 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@ typedef struct		s_glob
 	int i;
 	int u;
 	int o;
+	int n;
+	int plus;
 }					t_glob;
 
 void		ft_fill_ret(char *line, t_list **ret);
-int				count_name2(char *name);
-int				count_name(char *test, int i);
+int				customs_officer(char *tmp2);
 
 /*
 ** sequence
 */
 
-char			*start_exp(char *line, int *o, char *save);
+int				ft_globing_star(char *test, char *name, char **known, t_glob x);
+char			*get_elem(char *surface, int *var);
+char			*start_exp(char *line, int *o);
 int				remove_some(char *str, int ref);
 int				ft_glob_parsing(char *str, char *test, int i);
 char			*globing_sequence(char *line, int i);
@@ -42,10 +45,7 @@ int				ft_pass_theses(int o, char *str);
 size_t			ft_strlen_glob(char *str);
 int				go_to_next_part(int i, char *s);
 int				add_one(char *surface, int size);
-int				parsing_glob(char *line);	
-char			*return_letters(char *line, char *tmp, char **surface);
-char			*replace_letter(char *line, int i, int *o);
-
+int				parsing_glob(char *line);
 /*
 ** old ??
 */
