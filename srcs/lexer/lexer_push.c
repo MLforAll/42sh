@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/12 20:59:37 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/13 23:56:41 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ t_uint8					add_token(t_dlist **tokens,
 
 	if (!vs || vs->len < 1)
 		return (TRUE);
-	if (!get_tokens_strings(&tokstrs, vs->s))
+	if ((type == WORD && !get_tokens_strings(&tokstrs, vs->s))
+		|| !(tokstrs = ft_lstnew(vs->s, vs->len + 1)))
 		return (FALSE);
 	toksbw = tokstrs;
 	while (toksbw)
