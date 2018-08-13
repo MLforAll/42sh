@@ -6,7 +6,7 @@
 #    By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/04 06:10:18 by kdumarai          #+#    #+#              #
-#    Updated: 2018/08/01 23:54:27 by kdumarai         ###   ########.fr        #
+#    Updated: 2018/08/13 20:40:10 by kdumarai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -196,7 +196,23 @@ SRCFILES = get_next_line.c \
 	viclucas/ft_free_thoses.c \
 	viclucas/ft_quotes_check.c \
 	viclucas/ft_souder.c \
-	viclucas/print_db.c
+	viclucas/print_db.c \
+	read_libft/ft_format_internal.c \
+	read_libft/ft_format.c \
+	read_libft/ft_ntsarr_new.c \
+	read_libft/ft_ntsarr_push.c \
+	read_libft/ft_ntsarr_app.c \
+	read_libft/ft_ntsarr_len.c \
+	read_libft/ft_ntsarr_free.c \
+	read_libft/ft_ntsarr_print.c \
+	read_libft/ft_put.c \
+	read_libft/ft_strapp.c \
+	read_libft/ft_strappf.c \
+	read_libft/ft_strappc.c \
+	read_libft/ft_strappcf.c \
+	read_libft/ft_gnl.c \
+	read_libft/ft_readsplit.c \
+	read_libft/ft_strlenp.c
 SRCS = $(addprefix $(SRCDIR)/, $(SRCFILES))
 
 NSRC = $(shell echo "$(SRCS)" | awk '{print NF}')

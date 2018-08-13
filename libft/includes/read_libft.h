@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_libft.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echojnow <echojnow@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 12:16:26 by echojnow          #+#    #+#             */
-/*   Updated: 2018/07/31 18:54:39 by noom             ###   ########.fr       */
+/*   Updated: 2018/08/13 20:46:14 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@
 # include <dirent.h>
 # include <errno.h>
 
-# include "sh.h"
-
-/*
-** sh_read_bltncmd2.c
-*/
-char			*get_line(t_rl_opts *opts, int nl_escaped);
-char			**argv_pop(int argc, char **argv, int pops);
+# include "libft.h"
 
 /*
 ** String
