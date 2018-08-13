@@ -1,0 +1,16 @@
+*.o
+*.a
+
+objs/
+
+a.out
+42sh
+main.c
+
+libftreadline
+
+*.dSYM/
+
+libft
+
+.cquery
