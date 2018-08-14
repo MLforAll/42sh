@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 22:24:00 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 06:07:38 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 	if (test[x->i] && test[x->i] != '*' && test[x->i] != '?' &&
 			test[x->i] != '[')
 	{
-	/*	
-		ft_putendl(name + x->u);
-		ft_putendl(known[x->o]);
-		ft_putnbr(x->u);
-		ft_putchar('\n');
-		ft_putnbr(x->i);
-		ft_putendl("\n");
-	*/	
 		if (ft_strnequ(name + x->u, known[x->o], ft_strlen(known[x->o])))
 		{
 			x->i = x->i + ft_strlen(known[x->o]);
@@ -94,7 +86,6 @@ static char		**send_it(char *name, char **ret, char *test, char **known)
 		if (glob_compare(test, name, known, &x) < 0)
 			return (ret);
 	}
-//	if (coast_guard(name) == 1);
 	ret = ft_glob_db(ret, name);
 	return (ret);
 }
@@ -119,7 +110,7 @@ char			**replace_char(char *surface, char *test, char **known)
 	ft_strdel(&prev);
 	while ((g = readdir(dir)) != NULL)
 		ret = send_it(g->d_name, ret, test, known);
-	//ft_free_db_tab(known);	
+	ft_free_db_tab(known);	
 	closedir(dir);
 	return (ret);
 }

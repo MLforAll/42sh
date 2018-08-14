@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 22:11:01 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 06:07:24 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void		ft_fill_ret(char *line, t_list **ret)
 	int		o;
 
 	i = 0;
-	tmp = ft_strsplit(line, ' ');
-	print_db(tmp);
+	if (!(tmp = ft_strsplit(line, ' ')))
+		return ;
 	while (tmp[i])
 	{
 		o = ft_strlen(tmp[i]);
@@ -29,73 +29,63 @@ void		ft_fill_ret(char *line, t_list **ret)
 		ft_lstadd(ret, new);
 		i++;
 	}
+	ft_free_db_tab(tmp);	
 }
 
-char	*return_letters(char *line, char *tmp, char **surface)
+char	*return_letters(char **line, char *tmp, char *ret)
 {
 	char *temp;
 
-	if (tmp && surface[1])
+	if (tmp && ret)
 	{
-		ft_putendl("1");
-		temp = ft_strjoin(tmp, line);
+		temp = ft_strjoin(tmp, *line);
 		ft_strdel(&tmp);
-		tmp = ft_souder(temp, surface[1], " ");
-		ft_free_thoses(&temp, &line, NULL, NULL);
+		tmp = ft_souder(temp, ret, " ");
+		ft_free_thoses(&temp, line, &ret, NULL);
 		return (tmp);
 	}
 	if (tmp)
 	{
-		ft_putendl("2");
-		temp = ft_strjoin(tmp, line);
-		ft_free_thoses(&tmp, &line, NULL, NULL);
+		temp = ft_strjoin(tmp, *line);
+		ft_free_thoses(&tmp, line, &ret, NULL);
 		return (temp);
 	}
-	if (surface[1])
+	if (ret)
 	{
-		ft_putendl("3");
-//		ft_putendl("souder material");
-//		ft_putendl(line);
-//		ft_putendl(surface[1]);
-		
-		temp = ft_souder(line, surface[1], " ");
-		ft_strdel(&line);
-		ft_free_db_tab(surface);
+		temp = ft_souder(*line, ret, " ");
+		ft_free_thoses(&ret, line, NULL, NULL);
 		return (temp);
 	}
-	ft_putendl("7");
-	return (line);
+	return (*line);
 }
 
 char			*replace_letter(char *line, int i, int *o)
 {
 	char	*tmp;
 	char	**surface;
+	char	*ret;
+	static int a = 0;
 
+	ret = NULL;	
 	tmp = NULL;
 	surface = surface_of_work(line, &i);
 	if (i > 0)
 		tmp = ft_strndup(line, i);
+	if (surface[1])
+			ret = ft_strdup(surface[1]);
 	if (!(line = get_elem(surface[0], o)))
 	{
-		if (tmp && surface[1])
-		{
-			ft_putendl("4");
-			return (ft_souder(tmp, surface[1], " "));
-		}
+		ft_free_db_tab(surface);
+		if (tmp && ret)
+			return (ft_souder(tmp, ret, " "));
 		else if (tmp)
-		{
-			ft_putendl("5");
 			return (tmp);
-		}
-		if (surface[1])
-		{
-			ft_putendl("6");
-			return (surface[1]);
-		}
+		if (ret)
+			return (ret);
 		return (NULL);
 	}
-	return (return_letters(line, tmp, surface));
+	ft_free_db_tab(surface);
+	return (return_letters(&line, tmp, ret));
 }
 
 char			*start_exp(char *line, int *o)
@@ -114,8 +104,6 @@ char			*start_exp(char *line, int *o)
 		{
 			if (!(line = replace_letter(line, i, o)))
 				return (NULL);
-	//		ft_putendl("");
-	//		ft_putendl(line);
 			i = -1;
 		}
 		i++;

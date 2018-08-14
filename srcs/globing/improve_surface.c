@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 22:16:53 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 06:07:43 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ char		*ft_improve_expend(char *ret, char *tmp2, char *tmp, char *path)
 
 static int	glob_last_test_ext(int *i, char *surface, char *test)
 {
-	int	o;
-	int	ret;
+	char		*o;
+	int		ret;
 
 	ret = 0;
-	o = *i - remove_some(surface, *i);
+	o = fuck_stars(test, *i, surface);
 	*i += 1;
 	while (surface[*i] != ']')
 	{
@@ -60,7 +60,7 @@ static int	glob_last_test_ext(int *i, char *surface, char *test)
 	}
 	if (ret != 0)
 	{
-		if (ft_glob_parsing(ft_strndup(surface + *i - ret, ret), test, o) == -1)
+		if (ft_glob_parsing(ft_strndup(surface + *i - ret, ret), o) == -1)
 			return (-1);
 	}
 	return (0);
