@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/14 06:07:24 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 23:20:09 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char			*replace_letter(char *line, int i, int *o)
 	char	*tmp;
 	char	**surface;
 	char	*ret;
-	static int a = 0;
 
 	ret = NULL;	
 	tmp = NULL;
