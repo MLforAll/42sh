@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 16:17:07 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/08 05:50:19 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 00:02:19 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 static void			chg_ret(char **ret, char **last, char *path,
 							unsigned int idx)
 {
-	char			*rchr;
+	const char		*rchr;
 	char			*tmp;
 	size_t			sublen;
 
