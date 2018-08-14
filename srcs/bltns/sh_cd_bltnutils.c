@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 16:17:07 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 00:02:19 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 01:27:59 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,9 @@ static void			chg_ret(char **ret, char **last, char *path,
 		*last += ((*last)[2] != '\0') + 2;
 		return ;
 	}
-	if (**last || (*path == '/' && !**ret))
+	if ((**last || (*path == '/' && !**ret)) && !ft_strequ("/", *ret))
 		ft_stradd(ret, "/");
 	ft_strnadd(ret, *last, idx);
-}
-
-/*
-** get_newpath_init (static)
-**
-** char *curr -> pwd
-** char *path -> cd's argument
-*/
-
-inline static char	*get_newpath_init(char *curr, char *path)
-{
-	if ((*path == '/' || !curr || ft_strequ(curr, "/")))
-		return (ft_strdup(""));
-	return (ft_strdup(curr));
 }
 
 /*
@@ -77,7 +63,7 @@ char				*get_newpath(char *curr, char *path)
 	char			*last;
 	unsigned int	idx;
 
-	if (!path || !(ret = get_newpath_init(curr, path)))
+	if (!path || !(ret = ft_strdup((*path == '/' || !curr) ? "" : curr)))
 		return (NULL);
 	last = path + (*path == '/');
 	idx = 0;
