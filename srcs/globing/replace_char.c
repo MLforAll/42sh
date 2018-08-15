@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 22:24:00 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 02:19:12 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,17 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 	if (test[x->i] && test[x->i] != '*' && test[x->i] != '?' &&
 			test[x->i] != '[')
 	{
-	/*	
-		ft_putendl(name + x->u);
-		ft_putendl(known[x->o]);
-		ft_putnbr(x->u);
-		ft_putchar('\n');
-		ft_putnbr(x->i);
-		ft_putendl("\n");
-	*/	
 		if (ft_strnequ(name + x->u, known[x->o], ft_strlen(known[x->o])))
 		{
 			x->i = x->i + ft_strlen(known[x->o]);
 			x->u = x->u + ft_strlen(known[x->o]);
 			x->o += 1;
+			ft_putendl(test + x->i);
+			if (test + x->i && !ft_strchr(test + x->i, '*'))
+			{
+				if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
+					return (-1);
+			}
 		}
 		else if (x->i > 0 && test[x->i - 1] && test[x->i - 1] == '*')
 		{
@@ -59,6 +57,11 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 				x->i = x->i + ft_strlen(known[x->o]);
 				x->u = x->u + x->plus;
 				x->o += 1;
+				if (test + x->i && !ft_strchr(test + x->i, '*'))
+				{
+					if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
+						return (-1);
+				}
 			}
 			else
 				return (-1);
@@ -94,7 +97,6 @@ static char		**send_it(char *name, char **ret, char *test, char **known)
 		if (glob_compare(test, name, known, &x) < 0)
 			return (ret);
 	}
-//	if (coast_guard(name) == 1);
 	ret = ft_glob_db(ret, name);
 	return (ret);
 }
@@ -119,7 +121,7 @@ char			**replace_char(char *surface, char *test, char **known)
 	ft_strdel(&prev);
 	while ((g = readdir(dir)) != NULL)
 		ret = send_it(g->d_name, ret, test, known);
-	//ft_free_db_tab(known);	
 	closedir(dir);
+	ft_tabfree(&known);
 	return (ret);
 }

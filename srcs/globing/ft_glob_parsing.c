@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 11:29:41 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 21:31:38 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 01:25:20 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,71 +44,62 @@ int			remove_some(char *str, int ref)
 	return (ret);
 }
 
-int			ft_with_5f(char *str, char *test, int j)
+int			ft_with_5f(char *str, char *o)
 {
 	int i;
+	int j;
 
+	j = 0;
 	i = 0;
-	while (str[i])
-	{
-		if (str[i + 1] == '-' && str[i + 2])
-			if (test[j] >= str[i] && test[j] <= str[i + 2])
-				return (0);
-		i += 3;
-	}
-	return (-1);
-}
-
-int			ft_without_5f(char *str, char *test, int j)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == test[j])
-			return (0);
-		i++;
-	}
-	return (-1);
-}
-
-int			ft_destroy_5f(char *str, char *test, int j)
-{
-	int i;
-
-	i = 1;
-	if (ft_strchr(str, '-'))
+	while (o[j])
 	{
 		while (str[i])
 		{
 			if (str[i + 1] == '-' && str[i + 2])
-				if (test[j] >= str[i] && test[j] <= str[i + 2])
-					return (-1);
+				if (o[j] >= str[i] && o[j] <= str[i + 2])
+					return (1);
 			i += 3;
 		}
+		j++;
+		i = 0;
 	}
-	else
+	return (-1);
+}
+
+int			ft_without_5f(char *str, char *test)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (test[j])
 	{
 		while (str[i])
 		{
-			ft_putchar(str[i]);
 			if (str[i] == test[j])
-				return (-1);
+				return (1);
 			i++;
-		}	
+		}
+		j++;
+		i = 0;
 	}
-	return (0);
+	return (-1);
 }
 
-int			ft_glob_parsing(char *str, char *test, int i)
+int			ft_glob_parsing(char *str, char *o)
 {
-	if (!str || !str[0])
+	if (!str || !str[0] || !o)
 		return (-1);
 	if (str[0] == '!')
-			return (ft_destroy_5f(str, test, i));
+	{
+		if (ft_strchr(str, '-'))
+			return (ft_with_5f(str + 1, o) * -1);
+		else
+			return (ft_without_5f(str + 1, o) * -1);
+	}
 	if (ft_strchr(str, '-'))
-		return (ft_with_5f(str, test, i));
+		return (ft_with_5f(str, o));
 	else
-		return (ft_without_5f(str, test, i));
+		return (ft_without_5f(str, o));
 }

@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/13 22:01:45 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 02:46:37 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <dirent.h>
 # include <unistd.h>
 # include <libft.h>
+# include <stdio.h>
 # include <stdlib.h>
 
 typedef struct		s_glob
@@ -29,7 +30,7 @@ typedef struct		s_glob
 
 void		ft_fill_ret(char *line, t_list **ret);
 int				customs_officer(char *tmp2);
-
+char			*fuck_stars(char *test, int i, char *surface);
 /*
 ** sequence
 */
@@ -38,7 +39,7 @@ int				ft_globing_star(char *test, char *name, char **known, t_glob x);
 char			*get_elem(char *surface, int *var);
 char			*start_exp(char *line, int *o);
 int				remove_some(char *str, int ref);
-int				ft_glob_parsing(char *str, char *test, int i);
+int				ft_glob_parsing(char *str, char *o);
 char			*globing_sequence(char *line, int i);
 char			**ft_strsplit_globing(char *str);
 int				ft_pass_theses(int o, char *str);
