@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 20:09:13 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 03:26:47 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 14:59:54 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ int				exec_cmd(t_cmdnode *cmddat, \
 	if (!cmddat)
 		return (EXIT_FAILURE);
 	tests = (cmddat->builtin || cmddat->c_path);
-	if (cmddat->c_vars && !cmddat->builtin)
+	if (cmddat->c_vars && !cmddat->builtin && !env)
 	{
-		if ((tests & 0x1) && !env)
+		if ((tests & 0x1))
 		{
 			tests |= 1 << 1;
 			env = ft_tabdup((env) ? env : environ);
