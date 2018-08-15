@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 20:09:13 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/08 22:11:18 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:26:47 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static int		exec_setup(t_cmdnode *cmddat,
 		exit(exec_core(cmddat, forkdes, env));
 	}
 	clean_pipe(cmddat);
-	(spid) ? *spid = pid : (void)0;
+	(spid) ? *spid = pid : 0;
 	jobnode = (spid) ? NULL : sh_job_add(cmddat->c_path, pid,
 										kJobStateRunning, !async);
 	return ((async) ? -1 : ft_wait(jobnode));
@@ -126,16 +126,25 @@ int				exec_cmd(t_cmdnode *cmddat, \
 	extern char	**g_lvars;
 	extern char	**environ;
 	char		**tmp;
-	t_uint8		is_cmd;
+	t_uint8		tests;
+	int			ret;
 
 	if (!cmddat)
 		return (EXIT_FAILURE);
-	is_cmd = (cmddat->builtin || cmddat->c_path);
+	tests = (cmddat->builtin || cmddat->c_path);
 	if (cmddat->c_vars && !cmddat->builtin)
 	{
+		if ((tests & 0x1) && !env)
+		{
+			tests |= 1 << 1;
+			env = ft_tabdup((env) ? env : environ);
+		}
 		tmp = cmddat->c_vars;
 		while (*tmp)
-			set_env_from_str((is_cmd) ? NULL : &g_lvars, *(tmp++));
+			set_env_from_str((tests & 0x1) ? &env : &g_lvars, *(tmp++));
 	}
-	return (exec_setup(cmddat, async, spid, (env) ? env : environ));
+	ret = exec_setup(cmddat, async, spid, (env) ? env : environ);
+	if (tests & 0x2)
+		ft_tabfree(&env);
+	return (ret);
 }
