@@ -78,7 +78,8 @@ char			*set_env_var(char ***env, const char *var, char *value)
 	(void)ft_tabaddstr(tgtenv, entry_str);
 	free(entry_str);
 	newlen = ft_tablen(*tgtenv);
-	return ((**tgtenv && newlen > 0) ? (*tgtenv)[newlen - 1] : NULL);
+	return ((**tgtenv && newlen > 0) ?
+			ft_strchr((*tgtenv)[newlen - 1], '=') + 1 : NULL);
 }
 
 void			del_env_var(char ***env, const char *var)
