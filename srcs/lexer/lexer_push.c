@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 02:17:01 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:22:36 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int				cpy_string(char *s, t_str *vs, t_list **ret)
 		s++;
 	}
 	if (start_checking_globing(ret, vs->s) != vs->s)
-		(void)ft_tstrcpy(vs, "");
+		ft_tstrclr(vs);
 	return (rval);
 }
 
@@ -94,6 +94,7 @@ t_uint8					add_token(t_dlist **tokens,
 
 	if (!vs || vs->len < 1)
 		return (TRUE);
+	tokstrs = NULL;
 	if ((type == WORD && !get_tokens_strings(&tokstrs, vs->s))
 		|| (type != WORD && !(tokstrs = ft_lstnew(vs->s, vs->len + 1))))
 		return (FALSE);

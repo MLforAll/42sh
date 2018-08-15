@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 21:41:27 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/09 22:19:31 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:24:49 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			add_username(char **dest)
 	buff = NULL;
 	if (!(ppw = getpwuid(getuid()))
 		&& ((charbufflen = sysconf(_SC_GETPW_R_SIZE_MAX)) == -1
-			|| !(buff = ft_strnew(charbufflen))
+			|| !(buff = ft_strnew((size_t)charbufflen))
 			|| getpwuid_r(getuid(), &pwdat, buff, (size_t)charbufflen, &ppw)))
 	{
 		free(buff);
