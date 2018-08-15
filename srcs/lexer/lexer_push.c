@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 16:13:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 04:00:15 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 20:05:26 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int				cpy_string(char *s, t_str *vs, t_list **ret)
 		old = curr;
 		s++;
 	}
-	if (start_checking_globing(ret, vs->s))
+	if (!rval && start_checking_globing(ret, vs->s))
 		ft_tstrclr(vs);
 	return (rval);
 }

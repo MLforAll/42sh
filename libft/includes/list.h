@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 22:36:06 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/07/23 20:10:26 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/15 18:29:15 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 char			**ft_ltot(t_list *lst);
 
+t_list			*ft_lstnnext(t_list *alst, size_t len);
+
 void			ft_lstpush(t_list **alst, t_list *add);
 size_t			ft_lstlen(t_list *lst);
 
@@ -76,6 +78,7 @@ void			ft_dlstpush(t_dlist **alst, t_dlist *add);
 void			ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t));
 void			ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
 size_t			ft_dlstlen(t_dlist *lst);
+t_dlist			*ft_dlstnnext(t_dlist *alst, long len);
 
 /*
 ** utilities
