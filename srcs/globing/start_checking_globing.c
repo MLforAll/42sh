@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/14 06:07:27 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 01:51:17 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ int				start_checking_globing(t_list **ret, char *line)
 		return (FALSE);
 	if (!(line = start_exp(line, &o)))
 	{
-		ft_fill_ret(save, ret);
 		ft_strdel(&save);
 		return (FALSE);
 	}
-	if (start_checking_globing_norm(o, &line, &save, &ret))
+	if (start_checking_globing_norm(o, &line, &save))
 		return (FALSE);
 	ft_strdel(&save);
 	if (line)
