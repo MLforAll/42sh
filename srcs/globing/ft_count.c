@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 05:29:22 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:16:16 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 07:21:21 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char			*ft_get_the_prev(int i, char *surface)
 		i--;
 	if (i > 0)
 		i++;
-//	ft_putendl(surface + i);
 	while (surface[i] && surface[i] != '[' && surface[i] != '?' && surface[i] != '*' && surface[i] != '/')
 	{
 		ret++;
@@ -51,7 +50,6 @@ char			*ft_get_the_prev(int i, char *surface)
 	}
 	if (ret)
 		return (prev = ft_strndup(surface + i - ret, ret));
-//	ft_putendl(surface + i);
 	return (NULL);
 }
 
@@ -90,9 +88,6 @@ char			*fuck_stars(char *test, int i, char *surface)
 	j = 0;
 	prev = ft_get_the_prev(i, surface);
 	past = ft_get_the_past(ft_pass_theses(i, surface), surface);
-//	ft_putstr("prev = |");ft_putendl(prev);ft_putchar('|');
-//	ft_putstr("past = ");ft_putendl(past);
-	
 	while (test[j])
 	{
 		if (!prev)
@@ -104,20 +99,29 @@ char			*fuck_stars(char *test, int i, char *surface)
 		}	
 		j++;
 	}
+	ft_strdel(&prev);
 	if (!ret)
 		ret = ft_strdup(test);	
 	if (!past)
+	{
+		//ft_strdel(&ret);
 		return (ret);
+	}
+	j = 0;
 	while (ret[j])
 	{
 		if (ft_strnequ(ret + j, past, ft_strlen(past)))
 		{
 			final = ft_strndup(ret, j); 
-//			ft_putstr("final = "); ft_putendl(final);
-			return (ret);
+			ft_putendl(final);
+			ft_strdel(&past);
+			ft_strdel(&ret);
+			return (final);
 		}
 		j++;
 	}
+	ft_strdel(&past);
+	ft_strdel(&ret);
 	return (NULL);
 }
 

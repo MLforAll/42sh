@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:20:56 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:04:20 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 06:35:06 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 05:11:48 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -54,7 +54,11 @@ char		*ft_add_path(char *path, char *test)
 	char	*ret;
 
 	if (!path)
-		return (test);
+	{
+		ret = ft_strdup(test);
+		free(test);
+		return (ret);
+	}
 	if (!test)
 		return (path);
 	ret = ft_souder(path, test, "/");

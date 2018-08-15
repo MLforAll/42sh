@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 19:59:21 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/14 00:18:07 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 05:28:26 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		add_one(char *surface, int size)
 	return (1);
 }
 
-int		parsing_glob(char *line)
+int		parsing_glob(char *line, char *save)
 {
 	int i;
 	int flag;
@@ -39,7 +39,7 @@ int		parsing_glob(char *line)
 			flag = 1;
 		else if (line[i] == ']' && flag == 0)
 		{
-			ft_putendl_fd("bad pattern", 2);
+			ft_free_thoses(&line, &save, NULL, NULL);
 			return (-1);
 		}
 		else if (line[i] == ']')
@@ -48,8 +48,9 @@ int		parsing_glob(char *line)
 	}
 	if (flag == 0)
 		return (0);
-	ft_putendl_fd("bad pattern", 2);
-	return (0);
+	ft_free_thoses(&line, &save, NULL, NULL);
+	ft_putendl("paaa");
+	return (-1);
 }
 
 size_t	ft_strlen_glob(char *str)

@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:09:14 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 06:37:23 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 23:20:09 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -65,6 +65,7 @@ char			*replace_letter(char *line, int i, int *o)
 	char	*tmp;
 	char	**surface;
 	char	*test;
+	char	*temp;
 
 	test = NULL;
 	tmp = NULL;
@@ -78,7 +79,11 @@ char			*replace_letter(char *line, int i, int *o)
 	{
 		ft_tabfree(&surface);
 		if (tmp && test)
-			return (ft_souder(tmp, test, " "));
+		{
+			temp = ft_souder(tmp, test, " ");
+			ft_free_thoses(&tmp, &test, NULL, NULL);
+			return (temp);
+		}
 		else if (tmp)
 			return (tmp);
 		if (test)

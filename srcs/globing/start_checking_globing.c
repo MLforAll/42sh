@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:39:08 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 06:57:26 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 06:07:27 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -63,14 +63,21 @@ char			*get_elem(char *surface, int *var)
 		{
 			if (!(board = replace_char(surface, test,
 							ft_strsplit_globing(test))))
+			{
+				ft_free_thoses(&test, &path, NULL, NULL);
 				return (NULL);
+			}
 			ft_strdel(&test);
 			return (surface = improve_surface(surface, board, path, var));
 		}
 		path = ft_add_path(path, test);
 		if (move_into_surface(path, surface, &i, o) == -1)
+		{
+			ft_strdel(&path);
 			return (NULL);
+		}
 	}
+	ft_putendl("PAAAA");
 	return (surface);
 }
 
@@ -84,16 +91,19 @@ int			start_checking_globing(t_list **ret, char *line)
 		return (FALSE);
 	line = ft_strdup(line);
 	save = ft_strdup(line);
-	if (parsing_glob(line) == -1)
+	if (parsing_glob(line, save) == -1)
 		return (FALSE);
 	if (!(line = start_exp(line, &o)))
 	{
 		ft_fill_ret(save, ret);
+		ft_strdel(&save);
 		return (FALSE);
 	}
 	if (o == 0)
 	{
+		ft_strdel(&line);
 		ft_fill_ret(save, ret);
+		ft_strdel(&save);
 		return (FALSE);
 	}
 	ft_strdel(&save);

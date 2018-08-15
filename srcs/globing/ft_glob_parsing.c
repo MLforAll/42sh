@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 11:29:41 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:04:03 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 07:21:20 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 02:45:55 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -45,62 +45,77 @@ int			remove_some(char *str, int ref)
 	return (ret);
 }
 
-int			ft_with_5f(char *str, char *o)
+int			ft_with_5f(char *str, char *o, int nb)
 {
 	int i;
 	int j;
 
 	j = 0;
-	i = 0;
+	i = nb;
 	while (o[j])
 	{
 		while (str[i])
 		{
 			if (str[i + 1] == '-' && str[i + 2])
 				if (o[j] >= str[i] && o[j] <= str[i + 2])
+				{
+					ft_strdel(&o);
+					ft_strdel(&str);
 					return (1);
+				}
 			i += 3;
 		}
 		j++;
 		i = 0;
 	}
+	ft_strdel(&str);
+	ft_strdel(&o);
 	return (-1);
 }
 
-int			ft_without_5f(char *str, char *test)
+int			ft_without_5f(char *str, char *test, int nb)
 {
 	int i;
 	int j;
 
 	j = 0;
-	i = 0;
+	i = nb;
 	while (test[j])
 	{
 		while (str[i])
 		{
 			if (str[i] == test[j])
+			{
+				ft_strdel(&test);
+				ft_strdel(&str);
 				return (1);
+			}
 			i++;
 		}
 		j++;
 		i = 0;
 	}
+	ft_strdel(&test);
+	ft_strdel(&str);
 	return (-1);
 }
 
 int			ft_glob_parsing(char *str, char *o)
 {
-	if (!str || !str[0] || !o)
+	if (!str || !str[0])
+	{
+		ft_strdel(&o);
 		return (-1);
+	}
 	if (str[0] == '!')
 	{
 		if (ft_strchr(str, '-'))
-			return (ft_with_5f(str + 1, o) * -1);
+			return (ft_with_5f(str, o, 1) * -1);
 		else
-			return (ft_without_5f(str + 1, o) * -1);
+			return (ft_without_5f(str, o, 1) * -1);
 	}
 	if (ft_strchr(str, '-'))
-		return (ft_with_5f(str, o));
+		return (ft_with_5f(str, o, 0));
 	else
-		return (ft_without_5f(str, o));
+		return (ft_without_5f(str, o, 0));
 }

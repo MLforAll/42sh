@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:38:27 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 05:21:01 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				ft_pass_theses(int o, char *str);
 size_t			ft_strlen_glob(char *str);
 int				go_to_next_part(int i, char *s);
 int				add_one(char *surface, int size);
-int				parsing_glob(char *line);
+int				parsing_glob(char *line, char *save);
 /*
 ** old ??
 */

@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:36:37 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 05:53:42 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ char			**replace_char(char *surface, char *test, char **known)
 		prev = ft_strdup(".");
 	if ((dir = opendir(prev)) == NULL)
 	{
-		ft_putendl("Erreur d'opendir");
+		ft_free_thoses(&prev, NULL, NULL, NULL);
+		ft_tabfree(&known);
 		return (NULL);
 	}
 	ft_strdel(&prev);

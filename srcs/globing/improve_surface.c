@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:04:40 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 07:21:20 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 06:07:43 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -61,9 +61,16 @@ static int	glob_last_test_ext(int *i, char *surface, char *test)
 	}
 	if (ret != 0)
 	{
-		if (ft_glob_parsing(ft_strndup(surface + *i - ret, ret), o) == -1)
+		if (o)
+		{
+			if (ft_glob_parsing(ft_strndup(surface + *i - ret, ret), o) == -1)
+				return (-1);
+		}
+		else
 			return (-1);
 	}
+	else
+		ft_strdel(&o);
 	return (0);
 }
 
