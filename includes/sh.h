@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 01:57:27 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/08 18:57:05 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:57:26 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 ** macros
 */
 
-# define SH_GEN_NAME		"21sh"
-# define SH_RC				".21shrc"
-# define SH_HISTFILE		".21sh_history"
+# define SH_GEN_NAME		"42sh"
+# define SH_RC				".42shrc"
+# define SH_HISTFILE		".42sh_history"
 # define SH_MAXHIST			500
 
 # define SH_DEFAULT_PATH	"/usr/local/bin:/usr/bin:/bin:/usr/sbin"

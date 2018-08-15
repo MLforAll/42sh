@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 02:19:12 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:16:31 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 			x->i = x->i + ft_strlen(known[x->o]);
 			x->u = x->u + ft_strlen(known[x->o]);
 			x->o += 1;
-			ft_putendl(test + x->i);
 			if (test + x->i && !ft_strchr(test + x->i, '*'))
 			{
 				if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))

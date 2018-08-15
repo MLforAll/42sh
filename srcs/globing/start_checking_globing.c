@@ -6,7 +6,8 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 00:19:58 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:16:24 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/14 06:07:27 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +63,7 @@ char			*get_elem(char *surface, int *var)
 		{
 			if (!(board = replace_char(surface, test,
 							ft_strsplit_globing(test))))
-			{
 				return (NULL);
-			}
 			ft_strdel(&test);
 			return (surface = improve_surface(surface, board, path, var));
 		}

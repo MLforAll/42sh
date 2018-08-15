@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 05:29:22 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 01:30:06 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:16:16 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char			*fuck_stars(char *test, int i, char *surface)
 	j = 0;
 	prev = ft_get_the_prev(i, surface);
 	past = ft_get_the_past(ft_pass_theses(i, surface), surface);
-	ft_putstr("prev = |");ft_putendl(prev);ft_putchar('|');
-	ft_putstr("past = ");ft_putendl(past);
+//	ft_putstr("prev = |");ft_putendl(prev);ft_putchar('|');
+//	ft_putstr("past = ");ft_putendl(past);
 	
 	while (test[j])
 	{
@@ -113,7 +113,7 @@ char			*fuck_stars(char *test, int i, char *surface)
 		if (ft_strnequ(ret + j, past, ft_strlen(past)))
 		{
 			final = ft_strndup(ret, j); 
-			ft_putstr("final = "); ft_putendl(final);
+//			ft_putstr("final = "); ft_putendl(final);
 			return (ret);
 		}
 		j++;
