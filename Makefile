@@ -67,12 +67,14 @@ SRCFILES = sh_main.c \
 	globing/ft_count.c \
 	globing/ft_glob_parsing.c \
 	globing/ft_strsplit_globing.c \
+	globing/ft_strsplit_globing2.c \
 	globing/glob_check.c \
 	globing/globing_tools.c \
 	globing/improve_surface.c \
 	globing/random_glob.c \
 	globing/replace_char.c \
 	globing/start_checking_globing.c \
+	globing/start_checking_globing2.c \
 	globing/too_much_fcts.c \
 	eval/sh_eval.c \
 	eval/sh_evaluators.c \

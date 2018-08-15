@@ -6,7 +6,6 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 00:36:12 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 06:37:23 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 23:20:09 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -26,14 +25,14 @@ void		ft_fill_ret(char *line, t_list **ret)
 	while (tmp[i])
 	{
 		o = ft_strlen(tmp[i]);
-		new = ft_lstnew(tmp[i], o + 1 );
+		new = ft_lstnew(tmp[i], o + 1);
 		ft_lstpush(ret, new);
 		i++;
 	}
-	ft_free_db_tab(tmp);	
+	ft_free_db_tab(tmp);
 }
 
-char	*return_letters(char *line, char *tmp, char *test)
+char		*return_letters(char *line, char *tmp, char *test)
 {
 	char *temp;
 
@@ -60,7 +59,22 @@ char	*return_letters(char *line, char *tmp, char *test)
 	return (line);
 }
 
-char			*replace_letter(char *line, int i, int *o)
+char		*replace_letter_norm(char *tmp, char *test, char *temp)
+{
+	if (tmp && test)
+	{
+		temp = ft_souder(tmp, test, " ");
+		ft_free_thoses(&tmp, &test, NULL, NULL);
+		return (temp);
+	}
+	else if (tmp)
+		return (tmp);
+	if (test)
+		return (test);
+	return (NULL);
+}
+
+char		*replace_letter(char *line, int i, int *o)
 {
 	char	*tmp;
 	char	**surface;
@@ -70,6 +84,7 @@ char			*replace_letter(char *line, int i, int *o)
 	test = NULL;
 	tmp = NULL;
 	surface = surface_of_work(line, &i);
+	temp = NULL;
 	if (i > 0)
 		tmp = ft_strndup(line, i);
 	ft_strdel(&line);
@@ -78,23 +93,13 @@ char			*replace_letter(char *line, int i, int *o)
 	if (!(line = get_elem(surface[0], o)))
 	{
 		ft_tabfree(&surface);
-		if (tmp && test)
-		{
-			temp = ft_souder(tmp, test, " ");
-			ft_free_thoses(&tmp, &test, NULL, NULL);
-			return (temp);
-		}
-		else if (tmp)
-			return (tmp);
-		if (test)
-			return (test);
-		return (NULL);
+		return (replace_letter_norm(tmp, test, temp));
 	}
 	ft_tabfree(&surface);
 	return (return_letters(line, tmp, test));
 }
 
-char			*start_exp(char *line, int *o)
+char		*start_exp(char *line, int *o)
 {
 	int		i;
 	t_tabv	x;

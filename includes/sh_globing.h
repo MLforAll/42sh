@@ -37,11 +37,14 @@ char			*fuck_stars(char *test, int i, char *surface);
 
 int				ft_globing_star(char *test, char *name, char **known, t_glob x);
 char			*get_elem(char *surface, int *var);
+int				start_checking_globing_norm(int o, char **line, char **save,
+		t_list ***ret);
 char			*start_exp(char *line, int *o);
 int				remove_some(char *str, int ref);
 int				ft_glob_parsing(char *str, char *o);
 char			*globing_sequence(char *line, int i);
 char			**ft_strsplit_globing(char *str);
+void			nb_words_norm(char *str, int *i, int *ret);
 int				ft_pass_theses(int o, char *str);
 size_t			ft_strlen_glob(char *str);
 int				go_to_next_part(int i, char *s);

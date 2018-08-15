@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   improve_surface.c                                  :+:      :+:    :+:   */
+/*   ft_strsplit_globing.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,21 +24,7 @@ static int		nb_words(char *str)
 	ret = (i > 0) ? 1 : 0;
 	while (str[i])
 	{
-		if (str[i] == '*' || str[i] == '?' || str[i] == '[')
-		{
-			if (str[i] == '[')
-				while (str[i] && str[i] != ']')
-					i++;
-			if (str[i])
-				i++;
-			else if (str[i] == '?' || str[i] == '*')
-				while (str[i] && (str[i] == '?' || str[i] == '*'))
-					i++;
-			if (str[i] && str[i] != '*' && str[i] != '?' && str[i] != '[')
-				ret++;
-		}
-		else 
-			i++;
+		nb_words_norm(str, &i, &ret);
 	}
 	return (ret);
 }

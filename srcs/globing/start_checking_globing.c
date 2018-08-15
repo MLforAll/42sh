@@ -6,7 +6,6 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 06:57:26 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 06:07:27 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -44,6 +43,19 @@ int				move_into_surface(char *path, char *surface, int *i, int o)
 	return (0);
 }
 
+int				get_elem_norm(char **test, char ***board, char **path,
+		char **surface)
+{
+	if (!(*board = replace_char(*surface, *test,
+					ft_strsplit_globing(*test))))
+	{
+		ft_free_thoses(test, path, NULL, NULL);
+		return (1);
+	}
+	ft_strdel(test);
+	return (0);
+}
+
 char			*get_elem(char *surface, int *var)
 {
 	int				i;
@@ -61,13 +73,8 @@ char			*get_elem(char *surface, int *var)
 		if (ft_strchr(test, '?') || ft_strchr(test, '*') ||
 				ft_strchr(test, '['))
 		{
-			if (!(board = replace_char(surface, test,
-							ft_strsplit_globing(test))))
-			{
-				ft_free_thoses(&test, &path, NULL, NULL);
+			if (get_elem_norm(&test, &board, &path, &surface))
 				return (NULL);
-			}
-			ft_strdel(&test);
 			return (surface = improve_surface(surface, board, path, var));
 		}
 		path = ft_add_path(path, test);
@@ -77,15 +84,14 @@ char			*get_elem(char *surface, int *var)
 			return (NULL);
 		}
 	}
-	ft_putendl("PAAAA");
 	return (surface);
 }
 
-int			start_checking_globing(t_list **ret, char *line)
+int				start_checking_globing(t_list **ret, char *line)
 {
 	char	*save;
 	int		o;
-	
+
 	o = 0;
 	if (!ft_strchr(line, '?') && !ft_strchr(line, '[') && !ft_strchr(line, '*'))
 		return (FALSE);
@@ -99,13 +105,8 @@ int			start_checking_globing(t_list **ret, char *line)
 		ft_strdel(&save);
 		return (FALSE);
 	}
-	if (o == 0)
-	{
-		ft_strdel(&line);
-		ft_fill_ret(save, ret);
-		ft_strdel(&save);
+	if (start_checking_globing_norm(o, &line, &save, &ret))
 		return (FALSE);
-	}
 	ft_strdel(&save);
 	if (line)
 		ft_fill_ret(line, ret);

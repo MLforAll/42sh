@@ -6,7 +6,6 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 07:21:20 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 06:07:43 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -110,10 +109,7 @@ char		*improve_surface(char *surface, char **test, char *path, int *o)
 	tmp = NULL;
 	tmp2 = NULL;
 	ret = NULL;
-	if (!path)
-		length = 0;
-	else
-		length = ft_strlen(path) + 1;
+	length = !path ? 0 : ft_strlen(path) + 1;
 	while (test[i])
 	{
 		if (glob_last_test(test[i], surface + length) == 0)

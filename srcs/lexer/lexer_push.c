@@ -25,6 +25,19 @@ inline static t_quoting	detect_quote(char *s, t_quoting curr)
 	return (curr);
 }
 
+static int				cpy_string_norm(t_quoting *curr, t_quoting *old,
+		t_str *vs, char *s)
+{
+	if (*curr == kEscape)
+	{
+		if ((s[1] == '"' || s[1] == '\'' || s[1] == '$')
+			&& !ft_tstrncat(vs, ++s, 1))
+			return (-1);
+		*curr = *old;
+	}
+	return (0);
+}
+
 static int				cpy_string(char *s, t_str *vs, t_list **ret)
 {
 	t_quoting		curr;
@@ -41,13 +54,8 @@ static int				cpy_string(char *s, t_str *vs, t_list **ret)
 		if (curr == old && !(*s == '$' && curr != kSQuote
 			&& lexer_expand_var(&s, vs, ret, curr)) && !ft_tstrncat(vs, s, 1))
 			return (-1);
-		if (curr == kEscape)
-		{
-			if ((s[1] == '"' || s[1] == '\'' || s[1] == '$')
-				&& !ft_tstrncat(vs, ++s, 1))
-				return (-1);
-			curr = old;
-		}
+		if (cpy_string_norm(&curr, &old, vs, s))
+			return (-1);
 		old = curr;
 		s++;
 	}
