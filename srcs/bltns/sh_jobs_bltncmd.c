@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 01:25:14 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 19:27:01 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 01:45:15 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static t_list	**kick_job_back(int ac, char **av)
 		ft_putendl_fd("ft_secatoi(): out of range!", STDERR_FILENO);
 		return (NULL);
 	}
-	if (!(jtowake = (idx == -1) ? sh_job_lastest() : sh_job_idx(idx)))
+	if (idx == 0
+		|| !(jtowake = (idx == -1) ? sh_job_lastest() : sh_job_idx(idx - 1))
+		|| !*jtowake)
 	{
 		ft_putendl_fd("kick_job_back(): no such job!",
 			STDERR_FILENO);
