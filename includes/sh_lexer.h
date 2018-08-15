@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 20:14:40 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/12 01:23:40 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:38:57 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int				switch_to_squote(void *data);
 ** Tokens creators
 */
 
-char			*start_checking_globing(t_list **ret, char *line);
+int				start_checking_globing(t_list **ret, char *line);
 int				create_great_tok(void *data);
 int				create_dgreat_tok(void *data);
 int				create_less_tok(void *data);

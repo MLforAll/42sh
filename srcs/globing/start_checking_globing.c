@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 03:16:24 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/15 03:39:08 by viclucas         ###   ########.fr       */
 /*   Updated: 2018/08/14 06:07:27 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -74,32 +74,31 @@ char			*get_elem(char *surface, int *var)
 	return (surface);
 }
 
-char			*start_checking_globing(t_list **ret, char *line)
+int			start_checking_globing(t_list **ret, char *line)
 {
 	char	*save;
 	int		o;
 	
 	o = 0;
 	if (!ft_strchr(line, '?') && !ft_strchr(line, '[') && !ft_strchr(line, '*'))
-		return (line);
+		return (FALSE);
 	line = ft_strdup(line);
 	save = ft_strdup(line);
 	if (parsing_glob(line) == -1)
-		return (save);
+		return (FALSE);
 	if (!(line = start_exp(line, &o)))
 	{
 		ft_fill_ret(save, ret);
-		return (save);
+		return (FALSE);
 	}
 	if (o == 0)
 	{
-		//free
 		ft_fill_ret(save, ret);
-		return (save);
+		return (FALSE);
 	}
 	ft_strdel(&save);
 	if (line)
 		ft_fill_ret(line, ret);
-	//ft_strdel(&line);
-	return (line);
+	ft_strdel(&line);
+	return (TRUE);
 }
