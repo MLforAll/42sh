@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 16:55:22 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 02:05:08 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:16:15 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ inline static t_btree	*parse_error(const char *tok)
 	return (NULL);
 }
 
-static t_uint8			preparse_readagain(char **line,
+static t_dlist			*preparse_readagain(char **line,
 											t_dlist **tokens,
 											int lret, int fd)
 {
@@ -43,12 +43,12 @@ static t_uint8			preparse_readagain(char **line,
 		if (lret == LEXER_FAIL)
 		{
 			sh_err(SH_ERR_MALLOC, "parse_tokens()", NULL);
-			return (FALSE);
+			return (NULL);
 		}
 		if (lret == RA_ABORT)
-			return (FALSE);
+			return (NULL);
 	}
-	return (TRUE);
+	return (*tokens);
 }
 
 t_btree					*parse_tokens(char **line, \
@@ -64,7 +64,7 @@ t_btree					*parse_tokens(char **line, \
 	while (tokbw)
 	{
 		if (tokbw == *tokens && lret >= LEXER_INC
-			&& !preparse_readagain(line, tokens, lret, fd))
+			&& !(tokbw = preparse_readagain(line, tokens, lret, fd)))
 			return (NULL);
 		syntax_err = NULL;
 		if ((heredocs = parser_check_heredocs(tokbw, fd)) == -1)
