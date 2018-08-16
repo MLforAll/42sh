@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 23:00:55 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 06:01:48 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 06:11:17 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			env_bltn(int ac, char **av)
 	{
 		if (!ft_strchr(av[idx], '='))
 			break ;
-		set_env_from_str(&new_env, av[idx]);
+		(void)set_env_from_str(&new_env, av[idx]);
 		idx++;
 	}
 	if (!av[idx])

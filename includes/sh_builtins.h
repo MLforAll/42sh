@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:35:25 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/13 20:45:28 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 06:12:35 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		bg_bltn(int ac, char **av);
 int		env_bltn(int ac, char **av);
 int		setenv_bltn(int ac, char **av);
 int		unsetenv_bltn(int ac, char **av);
+
+int		export_bltn(int ac, char **av);
 int		unset_bltn(int ac, char **av);
 
 char	*get_line(t_rl_opts *opts, int nl_escaped);
