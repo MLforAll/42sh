@@ -14,11 +14,11 @@
 
 int		ft_error(char *s1, char *name)
 {
-		if (!s1)
-				return (-1);
-		ft_putstr_fd(s1, 2);
-		if (name)
-				ft_putstr_fd(name, 2);
-		ft_putchar_fd('\n', 2);
+	if (!s1)
 		return (-1);
+	ft_putstr_fd(s1, 2);
+	if (name)
+		ft_putstr_fd(name, 2);
+	ft_putchar_fd('\n', 2);
+	return (-1);
 }
