@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 18:31:09 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/01 19:07:52 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 04:34:28 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 void		switch_traps(int ign)
 {
 	const int		blk_sigs[] = {SIGTTIN, SIGTTOU, SIGTSTP, SIGCONT,
-								SIGINT, SIGTERM};
+								SIGINT, SIGTERM, SIGIO};
 	void			(*act)(int);
 	unsigned short	idx;
 

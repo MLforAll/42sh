@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 01:38:20 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 23:58:51 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 04:33:51 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "ftrl_dev.h"
 #include "ftrl_termcap.h"
 #include <term.h>
-
-//static void		
 
 /*
 ** draw_chs (static)    -> draw choices
@@ -30,7 +28,6 @@ static void			draw_chs(t_list *chs, unsigned long selidx)
 {
 	unsigned long	idx;
 	char			*tgt;
-	//t_size			sz;
 
 	idx = 0;
 	while (chs)
@@ -41,7 +38,6 @@ static void			draw_chs(t_list *chs, unsigned long selidx)
 		if (idx == selidx)
 			(void)outcap("mr");
 		ft_putendl_fd(tgt, STDIN_FILENO);
-		//ft_putnchar_fd()
 		if (idx == selidx)
 			(void)outcap("me");
 		chs = chs->next;

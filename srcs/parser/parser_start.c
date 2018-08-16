@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 16:55:22 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 02:05:08 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:54:33 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ inline static t_btree	*parse_error(const char *tok)
 	return (NULL);
 }
 
-static t_uint8			preparse_readagain(char **line,
-											t_dlist **tokens,
-											int lret, int fd)
+static t_dlist			*pre_ragain(char **line,
+										t_dlist **tokens,
+										int lret, int fd)
 {
 	const char	*delim;
 
@@ -43,12 +43,12 @@ static t_uint8			preparse_readagain(char **line,
 		if (lret == LEXER_FAIL)
 		{
 			sh_err(SH_ERR_MALLOC, "parse_tokens()", NULL);
-			return (FALSE);
+			return ((t_dlist*)-1);
 		}
 		if (lret == RA_ABORT)
-			return (FALSE);
+			return ((t_dlist*)-1);
 	}
-	return (TRUE);
+	return (*tokens);
 }
 
 t_btree					*parse_tokens(char **line, \
@@ -61,11 +61,13 @@ t_btree					*parse_tokens(char **line, \
 	t_dlist	*tokbw;
 
 	tokbw = *tokens;
-	while (tokbw)
+	while (TRUE)
 	{
 		if (tokbw == *tokens && lret >= LEXER_INC
-			&& !preparse_readagain(line, tokens, lret, fd))
+			&& (tokbw = pre_ragain(line, tokens, lret, fd)) == (t_dlist*)-1)
 			return (NULL);
+		if (!tokbw)
+			break ;
 		syntax_err = NULL;
 		if ((heredocs = parser_check_heredocs(tokbw, fd)) == -1)
 			syntax_err = ((t_token*)tokbw->content)->s;

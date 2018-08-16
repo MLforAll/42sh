@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:44:13 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 22:11:06 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:17:27 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int				parser_check_heredocs(t_dlist *tokens, int fd)
 	char			*tmp;
 	struct s_raconf	conf;
 
-	tok = (t_token*)tokens->content;
-	if (tok->type != DLESS)
+	if (!tokens || !(tok = (t_token*)tokens->content) || tok->type != DLESS)
 		return (FALSE);
 	if (!tokens->next || !tokens->next->content)
 		return (-1);
