@@ -1,0 +1,4 @@
+# This file prevents my shell script (oproj) to open certain locations
+# Please keep it
+./misc
+./libft
