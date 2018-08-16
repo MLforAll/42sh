@@ -6,7 +6,7 @@
 #    By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/04 06:10:18 by kdumarai          #+#    #+#              #
-#    Updated: 2018/08/15 18:29:44 by kdumarai         ###   ########.fr        #
+#    Updated: 2018/08/16 05:35:52 by kdumarai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ INCFILES = libft.h \
 			t_str.h \
 			t_tab.h \
 			viclucas.h \
+			read_libft.h \
 			wordtab.h
 INCLUDES = $(addprefix $(INCDIR)/, $(INCFILES))
 
