@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 05:29:22 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 07:21:21 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 04:01:42 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ char			*ft_get_the_prev(int i, char *surface)
 	i--;
 	if (i < 0)
 		return (0);
-	while (i > 0 && (surface[i] == ']' || surface[i] == '?' || surface[i] == '*') && surface[i] != '/')
-		i = ft_pass_it(surface, i);	
-	while (i > 0 && surface[i] != ']' && surface[i] != '?' && surface[i] != '*' && surface[i] != '/')
+	while (i > 0 && (surface[i] == ']' || surface[i] == '?' ||
+				surface[i] == '*') && surface[i] != '/')
+		i = ft_pass_it(surface, i);
+	while (i > 0 && surface[i] != ']' && surface[i] != '?' &&
+			surface[i] != '*' && surface[i] != '/')
 		i--;
 	if (i > 0)
 		i++;
-	while (surface[i] && surface[i] != '[' && surface[i] != '?' && surface[i] != '*' && surface[i] != '/')
+	while (surface[i] && surface[i] != '[' && surface[i] != '?'
+			&& surface[i] != '*' && surface[i] != '/')
 	{
 		ret++;
 		i++;
@@ -60,9 +63,11 @@ char	*ft_get_the_past(int i, char *surface)
 
 	past = NULL;
 	ret = 0;
-	while (surface[i] && (surface[i] == '[' || surface[i] == '?' || surface[i] == '*') && surface[i] != '/')
-		i = ft_pass_theses(i, surface);	
-	while (surface[i] && surface[i] != '[' && surface[i] != '?' && surface[i] != '*' && surface[i] != '/')
+	while (surface[i] && (surface[i] == '[' || surface[i] == '?' ||
+				surface[i] == '*') && surface[i] != '/')
+		i = ft_pass_theses(i, surface);
+	while (surface[i] && surface[i] != '[' && surface[i] != '?' &&
+			surface[i] != '*' && surface[i] != '/')
 	{
 		i++;
 		ret++;
@@ -70,11 +75,9 @@ char	*ft_get_the_past(int i, char *surface)
 	if (!surface[i - ret])
 		return (NULL);
 	if (ret)
-		past = ft_strndup(surface + i - ret, ret);	
+		past = ft_strndup(surface + i - ret, ret);
 	return (past);
 }
-//need algo pour check si a la fin de la chaine si past existe pas si il y  a pas detoile ne pas donner de range trop grosse / renvoyer NULL
-
 
 char			*fuck_stars(char *test, int i, char *surface)
 {
@@ -96,23 +99,20 @@ char			*fuck_stars(char *test, int i, char *surface)
 		{
 			ret = ft_strdup(test + j + ft_strlen(prev));
 			break ;
-		}	
+		}
 		j++;
 	}
 	ft_strdel(&prev);
 	if (!ret)
-		ret = ft_strdup(test);	
+		ret = ft_strdup(test);
 	if (!past)
-	{
-		//ft_strdel(&ret);
 		return (ret);
-	}
 	j = 0;
 	while (ret[j])
 	{
 		if (ft_strnequ(ret + j, past, ft_strlen(past)))
 		{
-			final = ft_strndup(ret, j); 
+			final = ft_strndup(ret, j);
 			ft_putendl(final);
 			ft_strdel(&past);
 			ft_strdel(&ret);
@@ -125,18 +125,20 @@ char			*fuck_stars(char *test, int i, char *surface)
 	return (NULL);
 }
 
-int				customs_officer(char *tmp2)
+int				customs_officer(char *tmp2, int len, char *surface, int *o)
 {
 	int i;
 
 	i = 0;
-	if (ft_strchr(tmp2, '*') || ft_strchr(tmp2, '[') || ft_strchr(tmp2, '?'))
+	if (ft_strchr(tmp2, '*') || ft_strchr(tmp2, '[') ||
+			ft_strchr(tmp2, '?') || (access(tmp2, F_OK) == 0))
+	{
+		if (!surface[len] || add_one(surface, len))
+			*o += 1;
 		return (0);
-	if (access(tmp2, F_OK) == 0)
-		return (0);
+	}
 	return (1);
 }
-
 
 int				ft_globing_star(char *test, char *name, char **known, t_glob x)
 {
@@ -145,9 +147,7 @@ int				ft_globing_star(char *test, char *name, char **known, t_glob x)
 	while (name[x.n])
 	{
 		if (ft_strnequ(name + x.n, known[x.o], ft_strlen(known[x.o])))
-		{
 			return (x.n - x.u + ft_strlen(known[x.o]));
-		}
 		else
 			x.n++;
 	}

@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/16 01:51:57 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 03:57:47 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct		s_glob
 	int plus;
 }					t_glob;
 
+int			ft_length(char *path, char *surface);
 void		ft_fill_ret(char *line, t_list **ret);
-int				customs_officer(char *tmp2);
 char			*fuck_stars(char *test, int i, char *surface);
+char			*norm_surface_improving(char *path, char *test, char *surface);
+int				customs_officer(char *tmp2, int len, char *surface, int *o);
 /*
 ** sequence
 */

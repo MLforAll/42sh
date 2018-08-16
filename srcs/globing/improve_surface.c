@@ -6,13 +6,13 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 16:54:54 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/14 06:07:43 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 03:59:20 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_globing.h"
 
-static int	ft_length(char *path, char *surface)
+int			ft_length(char *path, char *surface)
 {
 	int i;
 
@@ -27,11 +27,11 @@ static int	ft_length(char *path, char *surface)
 	return (i);
 }
 
-char		*ft_improve_expend(char *ret, char *tmp2, char *tmp, char *path)
+char		*ft_improve_expend(char *ret, char *tmp2)
 {
-	(void)path;
-	if (tmp)
-		ft_strdel(&tmp);
+	char *tmp;
+
+	tmp = NULL;
 	if (tmp2)
 	{
 		if (ret)
@@ -101,12 +101,10 @@ char		*improve_surface(char *surface, char **test, char *path, int *o)
 {
 	int		i;
 	char	*ret;
-	char	*tmp;
 	char	*tmp2;
 	int		length;
 
 	i = 0;
-	tmp = NULL;
 	tmp2 = NULL;
 	ret = NULL;
 	length = !path ? 0 : ft_strlen(path) + 1;
@@ -114,24 +112,14 @@ char		*improve_surface(char *surface, char **test, char *path, int *o)
 	{
 		if (glob_last_test(test[i], surface + length) == 0)
 		{
-			if (path)
-			{
-				tmp = ft_souder(path, test[i], "/");
-				tmp2 = ft_strjoin(tmp, surface + ft_length(path, surface));
-			}
-			else
-				tmp2 = ft_strjoin(test[i], surface + ft_length(path, surface));
-			if (customs_officer(tmp2) == 0)
-			{
-				if (!surface[ft_length(path, surface)] || add_one(surface, ft_length(path, surface)))
-					*o += 1;
-				ret = ft_improve_expend(ret, tmp2, tmp, path);
-			}
+			tmp2 = norm_surface_improving(path, test[i], surface);
+			if (customs_officer(tmp2, ft_length(path, surface),
+						surface, o) == 0)
+				ret = ft_improve_expend(ret, tmp2);
 		}
 		i++;
 	}
 	ft_free_db_tab(test);
-	if (path)
-		ft_strdel(&path);
+	ft_strdel(&path);
 	return (ret);
 }

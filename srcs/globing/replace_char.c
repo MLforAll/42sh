@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:18:29 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 05:53:42 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 04:44:10 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,56 @@ char			*get_prev_string(char *surface)
 	return (prev);
 }
 
+static int		glob_compare_norm(t_glob *x, char *test, char *name,
+		char **known)
+{
+	if ((x->plus = ft_globing_star(test, name, known, *x)) != -1)
+	{
+		x->i = x->i + ft_strlen(known[x->o]);
+		x->u = x->u + x->plus;
+		x->o += 1;
+		if (test + x->i && !ft_strchr(test + x->i, '*'))
+		{
+			if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
+				return (-1);
+		}
+		return (0);
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+static int		glob_strnequ_compare(char *name, t_glob *x, char **known,
+		char *test)
+{
+	x->i = x->i + ft_strlen(known[x->o]);
+	x->u = x->u + ft_strlen(known[x->o]);
+	x->o += 1;
+	if (test + x->i && !ft_strchr(test + x->i, '*'))
+	{
+		if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
+			return (-1);
+	}
+	return (0);
+}
+
 static int		glob_compare(char *test, char *name, char **known, t_glob *x)
 {
 	if (test[x->i] && test[x->i] != '*' && test[x->i] != '?' &&
 			test[x->i] != '[')
-	{
 		if (ft_strnequ(name + x->u, known[x->o], ft_strlen(known[x->o])))
 		{
-			x->i = x->i + ft_strlen(known[x->o]);
-			x->u = x->u + ft_strlen(known[x->o]);
-			x->o += 1;
-			if (test + x->i && !ft_strchr(test + x->i, '*'))
-			{
-				if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
-					return (-1);
-			}
+			if (glob_strnequ_compare(name, x, known, test) == -1)
+				return (-1);
 		}
 		else if (x->i > 0 && test[x->i - 1] && test[x->i - 1] == '*')
 		{
-			if ((x->plus = ft_globing_star(test, name, known, *x)) != -1)
-			{
-				x->i = x->i + ft_strlen(known[x->o]);
-				x->u = x->u + x->plus;
-				x->o += 1;
-				if (test + x->i && !ft_strchr(test + x->i, '*'))
-				{
-					if (ft_strlen_glob(test + x->i) != ft_strlen(name + x->u))
-						return (-1);
-				}
-			}
-			else
+			if (glob_compare_norm(x, test, name, known) == -1)
 				return (-1);
 		}
 		else
 			return (-1);
-	}
 	else
 	{
 		if (test[x->i] == '*')

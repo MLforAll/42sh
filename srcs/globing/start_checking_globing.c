@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 03:29:47 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/16 01:51:17 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:26:15 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int				move_into_surface(char *path, char *surface, int *i, int o)
 			*i += 1;
 	}
 	else
+	{
+		ft_strdel(&path);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -79,10 +82,7 @@ char			*get_elem(char *surface, int *var)
 		}
 		path = ft_add_path(path, test);
 		if (move_into_surface(path, surface, &i, o) == -1)
-		{
-			ft_strdel(&path);
 			return (NULL);
-		}
 	}
 	return (surface);
 }
