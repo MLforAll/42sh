@@ -65,6 +65,7 @@ SRCFILES = sh_main.c \
 	parser/parser_heredocs.c \
 	parser/parser_syntax.c \
 	globing/ft_count.c \
+	globing/ft_count2.c \
 	globing/ft_glob_parsing.c \
 	globing/ft_strsplit_globing.c \
 	globing/ft_strsplit_globing2.c \
@@ -73,6 +74,7 @@ SRCFILES = sh_main.c \
 	globing/improve_surface.c \
 	globing/random_glob.c \
 	globing/replace_char.c \
+	globing/replace_char2.c \
 	globing/start_checking_globing.c \
 	globing/start_checking_globing2.c \
 	globing/too_much_fcts.c \
