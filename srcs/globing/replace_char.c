@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Replace_char.c                                     :+:      :+:    :+:   */
+/*   replace_char.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,27 +11,6 @@
 /* ************************************************************************** */
 
 #include "sh_globing.h"
-
-char			*get_prev_string(char *surface)
-{
-	int					o;
-	char				*prev;
-
-	o = 0;
-	if (ft_strchr(surface, '/') == NULL)
-		return (NULL);
-	while (surface[o] && surface[o] != '?' && surface[o] != '[' &&
-			surface[o] != '*')
-		o++;
-	while (o > 0 && surface[o] != '/')
-		o--;
-	if (surface[o] == '/' && o > 0)
-		o--;
-	if (o == 0)
-		return (NULL);
-	prev = ft_strndup(surface, o + 1);
-	return (prev);
-}
 
 static int		glob_compare_norm(t_glob *x, char *test, char *name,
 		char **known)

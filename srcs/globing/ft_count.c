@@ -56,7 +56,7 @@ char			*ft_get_the_prev(int i, char *surface)
 	return (NULL);
 }
 
-char	*ft_get_the_past(int i, char *surface)
+char			*ft_get_the_past(int i, char *surface)
 {
 	int		ret;
 	char	*past;
@@ -85,43 +85,19 @@ char			*fuck_stars(char *test, int i, char *surface)
 	char	*past;
 	char	*ret;
 	char	*final;
-	int		j;
 
 	ret = NULL;
-	j = 0;
+	final = NULL;
 	prev = ft_get_the_prev(i, surface);
 	past = ft_get_the_past(ft_pass_theses(i, surface), surface);
-	while (test[j])
-	{
-		if (!prev)
-			break ;
-		if (ft_strnequ(test + j, prev, ft_strlen(prev)))
-		{
-			ret = ft_strdup(test + j + ft_strlen(prev));
-			break ;
-		}
-		j++;
-	}
+	fuck_stars_norm2(&test, &prev, &ret);
 	ft_strdel(&prev);
 	if (!ret)
 		ret = ft_strdup(test);
 	if (!past)
 		return (ret);
-	j = 0;
-	while (ret[j])
-	{
-		if (ft_strnequ(ret + j, past, ft_strlen(past)))
-		{
-			final = ft_strndup(ret, j);
-			ft_putendl(final);
-			ft_strdel(&past);
-			ft_strdel(&ret);
-			return (final);
-		}
-		j++;
-	}
-	ft_strdel(&past);
-	ft_strdel(&ret);
+	if ((final = fuck_stars_norm(&past, &ret)))
+		return (final);
 	return (NULL);
 }
 
@@ -138,18 +114,4 @@ int				customs_officer(char *tmp2, int len, char *surface, int *o)
 		return (0);
 	}
 	return (1);
-}
-
-int				ft_globing_star(char *test, char *name, char **known, t_glob x)
-{
-	(void)test;
-	x.n = x.u;
-	while (name[x.n])
-	{
-		if (ft_strnequ(name + x.n, known[x.o], ft_strlen(known[x.o])))
-			return (x.n - x.u + ft_strlen(known[x.o]));
-		else
-			x.n++;
-	}
-	return (-1);
 }
