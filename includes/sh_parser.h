@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 17:30:47 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 22:24:05 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:04:21 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ struct			s_raconf
 ** parser main
 */
 
-t_btree			*parse_tokens(char **line, t_dlist *tokens, int lret, int fd);
+t_btree			*parse_tokens(char **line, t_dlist **tokens, int lret, int fd);
 t_btree			*parser_create_ast(t_dlist *tokens);
 
 /*

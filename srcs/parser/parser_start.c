@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 16:55:22 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 22:09:18 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 02:05:08 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static t_uint8			preparse_readagain(char **line,
 }
 
 t_btree					*parse_tokens(char **line, \
-									t_dlist *tokens, \
+									t_dlist **tokens, \
 									int lret, \
 									int fd)
 {
@@ -60,22 +60,22 @@ t_btree					*parse_tokens(char **line, \
 	char	*syntax_err;
 	t_dlist	*tokbw;
 
-	tokbw = tokens;
+	tokbw = *tokens;
 	while (tokbw)
 	{
-		if (tokbw == tokens && lret >= LEXER_INC
-			&& !preparse_readagain(line, &tokens, lret, fd))
+		if (tokbw == *tokens && lret >= LEXER_INC
+			&& !preparse_readagain(line, tokens, lret, fd))
 			return (NULL);
 		syntax_err = NULL;
 		if ((heredocs = parser_check_heredocs(tokbw, fd)) == -1)
 			syntax_err = ((t_token*)tokbw->content)->s;
 		lret = RA_NOTHING;
 		if (!tokbw->next && ((t_token*)tokbw->content)->type != WORD)
-			lret = parser_check_inclist(line, &tokens, tokbw, fd);
+			lret = parser_check_inclist(line, tokens, tokbw, fd);
 		if (lret == RA_NOTHING
 			&& (syntax_err || (syntax_err = parser_check_syntax(tokbw))))
 			return (parse_error(syntax_err));
 		tokbw = tokbw->next;
 	}
-	return (parser_create_ast(tokens));
+	return (parser_create_ast(*tokens));
 }
