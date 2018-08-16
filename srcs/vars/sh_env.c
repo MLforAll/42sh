@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 22:31:45 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/08 05:55:52 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 03:00:33 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char			*chg_env_var(char **env, const char *var, char *new)
 	extern char	**environ;
 	const char	*tmp;
 	char		**bw;
+	size_t		varlen;
 
 	if (!var || !new)
 		return (NULL);
@@ -49,37 +50,39 @@ char			*chg_env_var(char **env, const char *var, char *new)
 	if (!*bw)
 		return (NULL);
 	ft_strdel(bw);
-	if (!(*bw = ft_strnew(ft_strlen(var) + ft_strlen(new) + 1)))
+	varlen = ft_strlen(var);
+	if (!(*bw = ft_strnew(varlen + ft_strlen(new) + 1)))
 		return (NULL);
 	(void)ft_strcpy(*bw, var);
 	(void)ft_strcat(*bw, "=");
 	(void)ft_strcat(*bw, new);
-	return (*bw);
+	return (*bw + varlen + 1);
 }
 
 char			*set_env_var(char ***env, const char *var, char *value)
 {
 	extern char	**environ;
 	char		***tgtenv;
-	char		*ret;
-	char		*entry_str;
+	char		*ptr;
 	size_t		newlen;
 
 	if (!var || !value)
 		return (NULL);
 	tgtenv = (env) ? env : &environ;
-	if ((ret = chg_env_var(*tgtenv, var, value)))
-		return (ret);
-	if (!(entry_str = ft_strnew(ft_strlen(var) + ft_strlen(value) + 1)))
+	if ((ptr = chg_env_var(*tgtenv, var, value)))
+		return (ptr);
+	if (!(ptr = ft_strnew(ft_strlen(var) + ft_strlen(value) + 1)))
 		return (NULL);
-	(void)ft_strcpy(entry_str, var);
-	(void)ft_strcat(entry_str, "=");
-	(void)ft_strcat(entry_str, value);
-	(void)ft_tabaddstr(tgtenv, entry_str);
-	free(entry_str);
+	(void)ft_strcpy(ptr, var);
+	(void)ft_strcat(ptr, "=");
+	(void)ft_strcat(ptr, value);
+	(void)ft_tabaddstr(tgtenv, ptr);
+	free(ptr);
 	newlen = ft_tablen(*tgtenv);
-	return ((**tgtenv && newlen > 0) ?
-			ft_strchr((*tgtenv)[newlen - 1], '=') + 1 : NULL);
+	if (!**tgtenv || newlen == 0
+		|| !(ptr = ft_strchr((*tgtenv)[newlen - 1], '=')))
+		return (NULL);
+	return (ptr + 1);
 }
 
 void			del_env_var(char ***env, const char *var)
