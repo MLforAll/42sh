@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 15:23:15 by viclucas          #+#    #+#             */
-/*   Updated: 2018/08/15 05:21:01 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/08/16 01:51:57 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ char			*fuck_stars(char *test, int i, char *surface);
 
 int				ft_globing_star(char *test, char *name, char **known, t_glob x);
 char			*get_elem(char *surface, int *var);
-int				start_checking_globing_norm(int o, char **line, char **save,
-		t_list ***ret);
+int				start_checking_globing_norm(int o, char **line, char **save);
 char			*start_exp(char *line, int *o);
 int				remove_some(char *str, int ref);
 int				ft_glob_parsing(char *str, char *o);
