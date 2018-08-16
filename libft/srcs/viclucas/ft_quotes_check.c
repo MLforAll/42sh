@@ -15,7 +15,7 @@
 void	ft_quotes_check(t_tabv *x, char c)
 {
 	if ('"' == c && x->flag2 == 0)
-			x->flag1 = (x->flag1 == 0) ? 1 : 0;
+		x->flag1 = (x->flag1 == 0) ? 1 : 0;
 	if ('\'' == c && x->flag1 == 0)
 		x->flag2 = (x->flag2 == 0) ? 1 : 0;
 }

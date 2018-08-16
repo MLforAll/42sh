@@ -74,7 +74,7 @@ char	*ft_acces(char *s)
 	lstat(s, &buf);
 	if (access(s, F_OK) == -1)
 		return ("cd: no such file or directory: ");
-else if (access(s, X_OK) == -1)
+	else if (access(s, X_OK) == -1)
 	{
 		lstat(s, &buf);
 		if (S_ISDIR(buf.st_mode) != 1)
