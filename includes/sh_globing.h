@@ -28,6 +28,7 @@ typedef struct	s_glob
 	int plus;
 }				t_glob;
 
+char			*get_prev_string(char *surface);
 int				ft_length(char *path, char *surface);
 void			ft_fill_ret(char *line, t_list **ret);
 char			*fuck_stars_norm(char **past, char **ret);
