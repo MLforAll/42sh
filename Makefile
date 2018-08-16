@@ -6,7 +6,7 @@
 #    By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/13 20:41:05 by kdumarai          #+#    #+#              #
-#    Updated: 2018/08/16 05:56:06 by kdumarai         ###   ########.fr        #
+#    Updated: 2018/08/16 06:42:02 by kdumarai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRCFILES = sh_main.c \
 	vars/sh_env.c \
 	vars/sh_env_helpers.c \
 	vars/sh_lvars.c \
+	vars/sh_lvars_helpers.c \
 	bltns/sh_builtins.c \
 	bltns/sh_echo_bltncmd.c \
 	bltns/sh_exit_bltncmd.c \

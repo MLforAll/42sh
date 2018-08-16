@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/16 05:55:10 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 06:13:17 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:26:24 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ static int	export_usage(char a)
 
 static void	print_vars(void)
 {
-	extern char	**environ;
-	char		**bw;
+	extern char		**environ;
+	extern t_list	*g_var_expwait;
+	char			**bw;
+	t_list			*ewbw;
 
 	bw = environ;
 	while (*bw)
@@ -33,6 +35,26 @@ static void	print_vars(void)
 		ft_putstr("export ");
 		ft_putendl(*(bw++));
 	}
+	ewbw = g_var_expwait;
+	while (ewbw)
+	{
+		ft_putstr("export ");
+		ft_putendl((const char*)ewbw->content);
+		ewbw = ewbw->next;
+	}
+}
+
+static void	export_lvar(const char *name)
+{
+	char	*value;
+
+	if ((value = get_lvar(name)))
+	{
+		(void)set_env_var(NULL, name, value);
+		del_lvar(name);
+	}
+	else if (!get_env_var(NULL, name))
+		(void)set_lvar_exported(name);
 }
 
 int			export_bltn(int ac, char **av)
@@ -44,7 +66,7 @@ int			export_bltn(int ac, char **av)
 	idx = 1;
 	if ((export_opts = ft_args_opts(av, &idx, "p", NULL)) < 0)
 		return (export_usage((char)-export_opts));
-	if (idx == 1 || ((export_opts & 0x1) && !av[idx]))
+	if ((idx == 1 || (export_opts & 0x1)) && !av[idx])
 	{
 		print_vars();
 		return (EXIT_SUCCESS);
@@ -53,8 +75,8 @@ int			export_bltn(int ac, char **av)
 	while (ac > 1 && av[idx])
 	{
 		if (!ft_strchr(av[idx], '='))
-			break ;
-		if (!set_env_from_str(NULL, av[idx]))
+			export_lvar(av[idx]);
+		else if (!set_env_from_str(NULL, av[idx]))
 			exval = EXIT_FAILURE;
 		idx++;
 	}

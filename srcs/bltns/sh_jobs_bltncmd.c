@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 01:25:14 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 01:45:15 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:51:51 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int				jobs_bltn(int ac, char **av)
 	return (EXIT_SUCCESS);
 }
 
-static t_list	**kick_job_back(int ac, char **av)
+static t_list	*kick_job_back(int ac, char **av)
 {
-	t_list	**jtowake;
+	t_list	*jobnode;
 	int		idx;
 
 	if (ac == 1)
@@ -51,31 +51,30 @@ static t_list	**kick_job_back(int ac, char **av)
 		return (NULL);
 	}
 	if (idx == 0
-		|| !(jtowake = (idx == -1) ? sh_job_lastest() : sh_job_idx(idx - 1))
-		|| !*jtowake)
+		|| !(jobnode = (idx == -1) ? sh_job_lastest() : sh_job_idx(idx - 1)))
 	{
 		ft_putendl_fd("kick_job_back(): no such job!",
 			STDERR_FILENO);
 		return (NULL);
 	}
-	kill(((t_jobctrl*)(*jtowake)->content)->j_pid, SIGCONT);
-	((t_jobctrl*)(*jtowake)->content)->j_state = kJobStateRunning;
-	return (jtowake);
+	kill(((t_jobctrl*)jobnode->content)->j_pid, SIGCONT);
+	((t_jobctrl*)jobnode->content)->j_state = kJobStateRunning;
+	return (jobnode);
 }
 
 int				fg_bltn(int ac, char **av)
 {
-	t_list	**jtowake;
+	t_list	*jtowake;
 
 	if (!(jtowake = kick_job_back(ac, av)))
 		return (EXIT_FAILURE);
-	((t_jobctrl*)(*jtowake)->content)->j_foreground = TRUE;
+	((t_jobctrl*)jtowake->content)->j_foreground = TRUE;
 	return (ft_wait(jtowake));
 }
 
 int				bg_bltn(int ac, char **av)
 {
-	t_list	**jtowake;
+	t_list	*jtowake;
 
 	if (!(jtowake = kick_job_back(ac, av)))
 		return (EXIT_FAILURE);

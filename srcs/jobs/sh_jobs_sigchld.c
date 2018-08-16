@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 04:41:14 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/09 05:40:47 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:37:17 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,24 @@ static const char	*get_sig_str(int sigc)
 	return (errs[sigc - 1]);
 }
 
-void				sh_jb_act_upon(t_jobctrl *jdat, int exval)
+void				sh_jb_act_upon(t_list **jobnode, int exval)
 {
 	const char	*tmp;
+	t_jobctrl	*jdat;
 
+	jdat = (t_jobctrl*)(*jobnode)->content;
+	if (WIFSTOPPED(exval))
+	{
+		jdat->j_state = kJobStateStopped;
+		insert_job_msg(jdat, ft_jobputstate(jdat->j_state));
+		return ;
+	}
 	if (WIFEXITED(exval))
 	{
 		jdat->j_state = kJobStateExited;
 		jdat->j_exval = WEXITSTATUS(exval);
 		if (!jdat->j_foreground)
 			insert_job_msg(jdat, ft_jobputstate(jdat->j_state));
-		return ;
-	}
-	if (jdat->j_state == kJobStateTerminated)
-		return ;
-	if (WIFSTOPPED(exval))
-	{
-		jdat->j_state = kJobStateStopped;
-		insert_job_msg(jdat, ft_jobputstate(jdat->j_state));
 	}
 	if (WIFSIGNALED(exval))
 	{
@@ -85,26 +85,31 @@ void				sh_jb_act_upon(t_jobctrl *jdat, int exval)
 		if ((tmp = get_sig_str(WTERMSIG(exval))))
 			insert_job_msg(jdat, tmp);
 	}
+	ft_lstdelone(jobnode, &ft_joblstdel);
 }
 
 void				sh_jb_sighdl(int sigc)
 {
-	t_list		*tmp;
+	t_list		**tmp;
 	t_jobctrl	*jdat;
 	int			exval;
 
-	if (sigc != SIGCHLD || !(tmp = g_jobslst))
+	if (sigc != SIGCHLD)
 		return ;
 	(void)signal(SIGCHLD, SIG_DFL);
 	sh_jobop_lock();
-	while (tmp)
+	tmp = &g_jobslst;
+	while (*tmp)
 	{
-		jdat = (t_jobctrl*)tmp->content;
+		jdat = (t_jobctrl*)(*tmp)->content;
 		exval = 0;
 		if (!jdat->j_foreground
 			&& waitpid(jdat->j_pid, &exval, WNOHANG | WUNTRACED) > 0)
-			sh_jb_act_upon(jdat, exval);
-		tmp = tmp->next;
+		{
+			sh_jb_act_upon(tmp, exval);
+			continue ;
+		}
+		tmp = &(*tmp)->next;
 	}
 	sh_jobop_unlock();
 	(void)signal(SIGCHLD, &sh_jb_sighdl);

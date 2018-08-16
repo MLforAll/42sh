@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 02:21:25 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 01:42:12 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:39:08 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,23 @@ void				ft_jobputnode(t_jobctrl *data)
 	ft_putendl(data->j_cmd);
 }
 
-int					ft_wait(t_list **jobnode)
+int					ft_wait(t_list *jobnode)
 {
 	t_jobctrl	*jdat;
+	t_list		**jobref;
 	int			exval;
 
-	jdat = (t_jobctrl*)(*jobnode)->content;
+	jdat = (t_jobctrl*)(jobnode)->content;
 	if (waitpid(jdat->j_pid, &exval, WUNTRACED) <= 0)
 	{
 		jdat->j_foreground = FALSE;
 		return (EXIT_FAILURE);
 	}
-	sh_jb_act_upon(jdat, exval);
-	if (!WIFSTOPPED(exval))
-	{
-		sh_jobop_lock();
-		ft_lstdelone(jobnode, &ft_joblstdel);
-		sh_jobop_unlock();
-	}
-	else
+	sh_jobop_lock();
+	if ((jobref = sh_jobref(jobnode)))
+		sh_jb_act_upon(jobref, exval);
+	sh_jobop_unlock();
+	if (WIFSTOPPED(exval))
 		jdat->j_foreground = FALSE;
 	return (WEXITSTATUS(exval));
 }

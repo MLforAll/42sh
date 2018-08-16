@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 01:57:27 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/13 22:57:26 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:09:23 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ char		*set_lvar(const char *var, char *value);
 char		*set_lvar_n(const char *var, int value);
 void		del_lvar(const char *var);
 
+t_uint8		set_lvar_exported(const char *name);
+t_uint8		is_lvar_exported(const char *name, t_uint8 del);
+void		del_lvar_exported(const char *name);
+
 /*
 ** errors
 */
@@ -122,6 +126,8 @@ int			sh_err_ret(t_errs errc,
 						const char *bltn,
 						const char *path,
 						int rvl);
+
+int			cmd_chk(char *path);
 
 t_errs		get_errcode_for_path(const char *path, int mode,
 								t_uint8 dir, t_uint8 creatable);

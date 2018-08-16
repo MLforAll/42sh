@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 13:40:24 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/08 05:51:41 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 06:42:39 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ static void	set_av_vars(char **av)
 
 t_uint8		shell_init(char **av)
 {
-	extern char **g_lvars;
+	extern char 	**g_lvars;
+	extern t_list	*g_var_expwait;
 
 	switch_traps(TRUE);
 	if (g_lvars)
 		ft_tabfree(&g_lvars);
+	if (g_var_expwait)
+		ft_lstdel(&g_var_expwait, &ft_lstnodefree);
 	if (!(g_lvars = ft_tabnew()))
 		return (FALSE);
 	set_av_vars(av);

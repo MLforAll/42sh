@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 21:23:18 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/06 05:51:13 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:02:53 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,26 @@ inline int				sh_err_ret(t_errs errc,
 {
 	sh_err(errc, bltn, path);
 	return (rvl);
+}
+
+int						cmd_chk(char *path)
+{
+	t_errs	code;
+	t_errs	noent;
+	char	*pathenv;
+
+	if (!path)
+		return ((int)SH_ERR_UNDEFINED);
+	noent = SH_ERR_NOENT;
+	if (!ft_strchr(path, '/'))
+	{
+		if ((pathenv = get_env_var(NULL, "PATH")) && *pathenv)
+			return ((int)SH_ERR_NOCMD);
+		noent = SH_ERR_NOCMD;
+	}
+	if ((code = get_errcode_for_path(path, X_OK, NO, NO)) == SH_ERR_UNDEFINED)
+		return (-1);
+	if (code == SH_ERR_NOENT)
+		return ((int)noent);
+	return ((int)code);
 }

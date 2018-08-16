@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 19:45:50 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/07 23:52:24 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:15:51 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 
 int			main(int ac, char **av)
 {
-	extern char	**environ;
-	extern char **g_lvars;
-	char		**env_bak;
-	int			exval;
+	extern char		**environ;
+	extern char 	**g_lvars;
+	extern t_list	*g_var_expwait;
+	char			**env_bak;
+	int				exval;
 
 	g_sh_name = av[0];
 	env_bak = environ;
@@ -43,6 +44,7 @@ int			main(int ac, char **av)
 		exval = interactive_shell();
 	ft_tabfree(&g_lvars);
 	ft_tabfree(&environ);
+	ft_lstdel(&g_var_expwait, &ft_lstnodefree);
 	sh_jobs_rmall();
 	environ = env_bak;
 	return (exval);

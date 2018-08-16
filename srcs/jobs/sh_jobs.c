@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 02:55:01 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/16 01:42:19 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:52:36 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,33 @@
 extern t_list	*g_jobslst;
 t_list			*g_jobslst = NULL;
 
-t_list			**sh_job_idx(int idx)
+t_list			*sh_job_idx(int idx)
 {
-	t_list	**tmp;
+	t_list	*tmp;
 
-	if (!(tmp = &g_jobslst))
+	if (!(tmp = g_jobslst))
 		return (NULL);
 	sh_jobop_lock();
-	while ((*tmp) && idx--)
-		tmp = &(*tmp)->next;
+	while (tmp && idx--)
+		tmp = tmp->next;
 	sh_jobop_unlock();
 	return ((idx > 0) ? NULL : tmp);
 }
 
-t_list			**sh_job_lastest(void)
+t_list			*sh_job_lastest(void)
 {
-	t_list	**tmp;
+	t_list	*tmp;
 
-	tmp = &g_jobslst;
-	if (!*tmp)
+	if (!(tmp = g_jobslst))
 		return (NULL);
 	sh_jobop_lock();
-	while ((*tmp)->next)
-		tmp = &(*tmp)->next;
+	while (tmp->next)
+		tmp = tmp->next;
 	sh_jobop_unlock();
 	return (tmp);
 }
 
-t_list			**sh_job_add(char *cmd,\
+t_list			*sh_job_add(char *cmd,\
 							pid_t pid, \
 							t_jobstate state, \
 							t_uint8 foreground)
@@ -59,21 +58,35 @@ t_list			**sh_job_add(char *cmd,\
 		tmp = &(*tmp)->next;
 	if (!(jdat = ft_memalloc(sizeof(t_jobctrl))))
 		return (NULL);
-	jdat->j_idx = (!*tmp) ? 1 : ((t_jobctrl*)(*tmp)->content)->j_idx;
+	jdat->j_idx = (!*tmp) ? 1 : ((t_jobctrl*)(*tmp)->content)->j_idx + 1;
 	jdat->j_state = state;
 	jdat->j_cmd = ft_strdup((cmd) ? cmd : "builtin");
 	jdat->j_pid = pid;
 	jdat->j_foreground = foreground;
 	if (!(node = ft_lstnew_nomalloc(jdat, sizeof(t_jobctrl))))
 	{
-		free(jdat->j_cmd);
-		free(jdat);
+		ft_joblstdel(jdat, sizeof(t_jobctrl));
+		sh_jobop_unlock();
 		return (NULL);
 	}
 	tmp = (*tmp) ? &(*tmp)->next : tmp;
 	*tmp = node;
 	sh_jobop_unlock();
-	return (tmp);
+	return (node);
+}
+
+t_list			**sh_jobref(t_list *jobnode)
+{
+	t_list	**bw;
+
+	bw = &g_jobslst;
+	while (*bw)
+	{
+		if (*bw == jobnode)
+			return (bw);
+		bw = &(*bw)->next;
+	}
+	return (NULL);
 }
 
 void			sh_jobs_rmall(void)

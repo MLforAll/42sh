@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 20:09:13 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/15 14:59:54 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:36:43 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,6 @@
 #include <signal.h>
 #include "sh_jobs.h"
 #include "sh.h"
-
-static int		cmd_chk(char *path)
-{
-	t_errs	code;
-	t_errs	noent;
-	char	*pathenv;
-
-	if (!path)
-		return ((int)SH_ERR_UNDEFINED);
-	noent = SH_ERR_NOENT;
-	if (!ft_strchr(path, '/'))
-	{
-		if ((pathenv = get_env_var(NULL, "PATH")) && *pathenv)
-			return ((int)SH_ERR_NOCMD);
-		noent = SH_ERR_NOCMD;
-	}
-	if ((code = get_errcode_for_path(path, X_OK, NO, NO)) == SH_ERR_UNDEFINED)
-		return (-1);
-	if (code == SH_ERR_NOENT)
-		return ((int)noent);
-	return ((int)code);
-}
 
 static void		restore_bakfds(t_tab *bakfds)
 {
@@ -93,7 +71,7 @@ static int		exec_setup(t_cmdnode *cmddat,
 {
 	t_uint8		forkdes;
 	pid_t		pid;
-	t_list		**jobnode;
+	t_list		*jobnode;
 	char		**env_bak;
 	extern char	**environ;
 
@@ -118,14 +96,37 @@ static int		exec_setup(t_cmdnode *cmddat,
 	return ((async) ? -1 : ft_wait(jobnode));
 }
 
+static void		set_vars(char **vars, char ***env, t_uint8 tests)
+{
+	extern char	**g_lvars;
+	size_t		len;
+	char		*tmp;
+	char		***tgt;
+
+	while (*vars)
+	{
+		if (!(tests & 0x1))
+		{
+			len = ft_strclen(*vars, '=');
+			if ((tmp = ft_strndup(*vars, len)))
+			{
+				tgt = (is_lvar_exported(tmp, YES)) ? env : &g_lvars;
+				free(tmp);
+			}
+		}
+		else
+			tgt = env;
+		(void)set_env_from_str(tgt, *vars);
+		vars++;
+	}
+}
+
 int				exec_cmd(t_cmdnode *cmddat, \
 						t_uint8 async, \
 						pid_t *spid, \
 						char **env)
 {
-	extern char	**g_lvars;
 	extern char	**environ;
-	char		**tmp;
 	t_uint8		tests;
 	int			ret;
 
@@ -139,9 +140,7 @@ int				exec_cmd(t_cmdnode *cmddat, \
 			tests |= 1 << 1;
 			env = ft_tabdup((env) ? env : environ);
 		}
-		tmp = cmddat->c_vars;
-		while (*tmp)
-			set_env_from_str((tests & 0x1) ? &env : &g_lvars, *(tmp++));
+		set_vars(cmddat->c_vars, (env) ? &env : &environ, tests);
 	}
 	ret = exec_setup(cmddat, async, spid, (env) ? env : environ);
 	if (tests & 0x2)

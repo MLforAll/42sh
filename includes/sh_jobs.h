@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 04:46:03 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/09 05:42:18 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:33:11 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ typedef struct	s_jobctrl
 */
 
 t_uint8			sh_job_put(int n);
-t_list			**sh_job_idx(int idx);
-t_list			**sh_job_lastest(void);
+t_list			*sh_job_idx(int idx);
+t_list			*sh_job_lastest(void);
 
-t_list			**sh_job_add(char *cmd, \
+t_list			*sh_job_add(char *cmd, \
 							pid_t pid, \
 							t_jobstate state, \
 							t_uint8 foreground);
+
+t_list			**sh_jobref(t_list *jobnode);
 
 void			sh_jobs_rmall(void);
 
@@ -64,7 +66,7 @@ void			sh_jb_sighdl(int sigc);
 ** wait for a job to be updated by signal hdl
 */
 
-int				ft_wait(t_list **jobnode);
+int				ft_wait(t_list *jobnode);
 
 /*
 ** async
@@ -81,6 +83,6 @@ void			sh_jobop_reinit(void);
 void			ft_joblstdel(void *data, size_t datsize);
 void			ft_jobputnode(t_jobctrl *data);
 const char		*ft_jobputstate(enum e_jobstate state);
-void			sh_jb_act_upon(t_jobctrl *jdat, int exval);
+void			sh_jb_act_upon(t_list **jobnode, int exval);
 
 #endif

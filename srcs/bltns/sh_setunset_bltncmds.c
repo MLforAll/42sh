@@ -6,7 +6,7 @@
 /*   By: kdumarai <kdumarai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 21:26:00 by kdumarai          #+#    #+#             */
-/*   Updated: 2018/08/13 23:27:02 by kdumarai         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:14:46 by kdumarai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int		unset_bltns(int ac, char **av, t_uint8 strict)
 	idx = 0;
 	while (++idx < ac)
 	{
+		if (strict)
+			del_lvar_exported(av[idx]);
 		if (get_env_var(NULL, av[idx]))
 			del_env_var(NULL, av[idx]);
 		else if (!strict)
